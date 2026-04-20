@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Film & Video — AJANDO</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--black:#0a0807;--black-soft:#141010;--black-mid:#1e1818;--rose:#c9a0a0;--rose-light:#e8cece;--rose-deep:#a07070;--choco:#6b3f2a;--choco-mid:#8a5a3f;--choco-light:#b08060;--cream:#f5ede8;--text-dim:#9a8880;}
+html{scroll-behavior:smooth;}body{background:var(--black);color:var(--cream);font-family:'Montserrat',sans-serif;overflow-x:hidden;cursor:crosshair;}a{text-decoration:none;color:inherit;}
+.nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(10,8,7,0.97);border-bottom:1px solid rgba(201,160,160,0.08);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;letter-spacing:0.15em;color:var(--rose-light);}
+.nav-back{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:0.5rem;transition:color 0.3s;}.nav-back:hover{color:var(--rose-light);}.nav-back::before{content:'←';font-size:0.9rem;}
+.nav-section{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose-deep);}
+.hero{min-height:90vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;opacity:0;animation:fadeInPage 1s ease forwards 0.1s;}
+@keyframes fadeInPage{to{opacity:1;}}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:6rem 3rem 4rem;position:relative;z-index:2;}
+.hero-eyebrow{font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--choco-light);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem;opacity:0;animation:up 0.8s ease forwards 0.4s;}
+.hero-eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--choco-light);}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,6vw,5.5rem);font-weight:900;line-height:0.92;color:var(--cream);opacity:0;animation:up 0.9s ease forwards 0.55s;}
+.hero-title em{color:var(--rose);font-style:italic;display:block;}
+.hero-divider{width:4rem;height:2px;background:var(--rose-deep);margin:2rem 0;opacity:0;animation:expandLine 0.7s ease forwards 0.9s;transform-origin:left;}
+@keyframes expandLine{from{width:0;opacity:0;}to{width:4rem;opacity:1;}}
+.hero-desc{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(245,237,232,0.7);line-height:1.8;max-width:380px;opacity:0;animation:up 0.8s ease forwards 1s;}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;opacity:0;animation:up 0.8s ease forwards 1.1s;}
+.h-stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--rose-light);}
+.h-stat-label{font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-top:0.2rem;}
+@keyframes up{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.hero-right{position:relative;overflow:hidden;background:var(--black-soft);}
+.hero-reel{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:2px;opacity:0;animation:fadeInPage 1.2s ease forwards 0.7s;}
+.reel-cell{background:var(--black-mid);position:relative;overflow:hidden;transition:transform 0.5s ease;}.reel-cell:hover{transform:scale(1.03);z-index:2;}
+.reel-cell-inner{position:absolute;bottom:0;left:0;right:0;padding:1rem;}
+.reel-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.reel-bg-text{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;font-style:italic;color:rgba(201,160,160,0.06);line-height:1;}
+.reel-label{font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--rose-deep);background:rgba(10,8,7,0.7);padding:0.3rem 0.6rem;position:relative;z-index:1;}
+.hero-overlay-grad{position:absolute;inset:0;background:linear-gradient(to right,var(--black) 0%,transparent 30%);pointer-events:none;z-index:1;}
+.scroll-hint{text-align:center;padding:2rem;font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-dim);display:flex;flex-direction:column;align-items:center;gap:0.6rem;}
+.scroll-hint-line{width:1px;height:2.5rem;background:linear-gradient(to bottom,var(--rose-deep),transparent);}
+.filter-bar{padding:2.5rem 3rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;border-bottom:1px solid rgba(201,160,160,0.08);}
+.filter-label{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-dim);margin-right:0.5rem;}
+.filter-btn{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.5rem 1.2rem;border:1px solid rgba(201,160,160,0.2);color:var(--text-dim);background:transparent;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all 0.3s;position:relative;overflow:hidden;}
+.filter-btn::before{content:'';position:absolute;inset:0;background:var(--rose-deep);transform:scaleX(0);transform-origin:left;transition:transform 0.3s ease;z-index:0;}
+.filter-btn span{position:relative;z-index:1;}
+.filter-btn:hover::before,.filter-btn.active::before{transform:scaleX(1);}
+.filter-btn:hover,.filter-btn.active{color:var(--black);border-color:var(--rose-deep);}
+.results-count{margin-left:auto;font-size:0.6rem;letter-spacing:0.2em;color:var(--text-dim);}
+.count-num{color:var(--rose-light);font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;}
+.section-label{padding:3rem 3rem 1.5rem;display:flex;align-items:center;gap:1.5rem;}
+.section-label-text{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--choco-light);}
+.section-label-line{flex:1;height:1px;background:rgba(201,160,160,0.1);}
+.section-label-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--cream);}
+.content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,160,160,0.06);margin:0 3rem 4rem;}
+.card{background:var(--black);position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4;}
+.card-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform 0.6s ease;}
+.card-bg-pattern{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+.card-bg-letter{font-family:'Playfair Display',serif;font-size:8rem;font-weight:900;font-style:italic;line-height:1;transition:transform 0.6s ease,opacity 0.6s ease;}
+.card:hover .card-bg{transform:scale(1.08);}.card:hover .card-bg-letter{transform:scale(1.1);opacity:0.6;}
+.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,8,7,0.95) 0%,rgba(10,8,7,0.4) 50%,transparent 100%);transition:opacity 0.4s;}.card:hover .card-overlay{opacity:0.85;}
+.card-content{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;z-index:2;}
+.card-cat{font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;}
+.card-cat-dot{width:4px;height:4px;border-radius:50%;background:var(--rose-deep);display:inline-block;}
+.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--cream);line-height:1.25;margin-bottom:0.4rem;}
+.card-sub{font-size:0.62rem;color:var(--text-dim);line-height:1.6;opacity:0;transform:translateY(8px);transition:all 0.4s ease 0.05s;max-height:0;overflow:hidden;}
+.card:hover .card-sub{opacity:1;transform:translateY(0);max-height:4rem;}
+.card-tags{display:flex;gap:0.3rem;flex-wrap:wrap;margin-top:0.8rem;opacity:0;transform:translateY(8px);transition:all 0.4s ease 0.1s;}
+.card:hover .card-tags{opacity:1;transform:translateY(0);}
+.card-tag{font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;border:1px solid rgba(201,160,160,0.25);color:var(--text-dim);padding:0.2rem 0.5rem;}
+.card-arrow{position:absolute;top:1.2rem;right:1.2rem;width:2rem;height:2rem;border:1px solid rgba(201,160,160,0.2);display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:var(--rose);opacity:0;transform:translate(4px,-4px);transition:all 0.4s ease;z-index:3;}
+.card:hover .card-arrow{opacity:1;transform:translate(0,0);}
+.card.featured{grid-column:span 2;aspect-ratio:auto;min-height:340px;}
+.card.featured .card-title{font-size:1.6rem;}.card.featured .card-sub{font-size:0.68rem;}
+.card.hidden{display:none;}
+.pa-strip{margin:0 3rem 5rem;border:1px solid rgba(201,160,160,0.12);display:grid;grid-template-columns:1fr 2fr;overflow:hidden;}
+.pa-left{background:var(--choco);padding:3rem;display:flex;flex-direction:column;justify-content:center;}
+.pa-title-sm{font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(245,237,232,0.5);margin-bottom:1rem;}
+.pa-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--cream);line-height:1.1;}
+.pa-right{padding:3rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;}
+.pa-item{border-left:2px solid rgba(201,160,160,0.2);padding-left:1.5rem;transition:border-color 0.3s;}.pa-item:hover{border-left-color:var(--rose-deep);}
+.pa-item-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.4rem;}
+.pa-item-text{font-size:0.68rem;color:var(--text-dim);line-height:1.8;font-weight:300;}
+.marquee{background:var(--black-soft);border-top:1px solid rgba(201,160,160,0.08);border-bottom:1px solid rgba(201,160,160,0.08);padding:0.7rem 0;overflow:hidden;white-space:nowrap;margin-bottom:5rem;}
+.marquee-inner{display:inline-block;animation:marquee 18s linear infinite;font-size:0.58rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-dim);}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.sep{color:var(--rose-deep);margin:0 1rem;}
+.coming-banner{margin:0 3rem 5rem;padding:3rem;background:var(--black-soft);border:1px solid rgba(201,160,160,0.1);display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;}
+.coming-banner::before{content:'SOON';position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:9rem;font-weight:900;color:rgba(201,160,160,0.03);line-height:1;pointer-events:none;}
+.coming-title-sm{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:0.8rem;}
+.coming-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--cream);}
+.coming-sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.5rem;font-weight:300;}
+.coming-btn{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;border:1px solid var(--rose-deep);color:var(--rose-light);padding:0.8rem 1.8rem;white-space:nowrap;transition:all 0.3s;cursor:pointer;background:transparent;font-family:'Montserrat',sans-serif;}
+.coming-btn:hover{background:var(--rose-deep);color:var(--black);}
+.page-footer{padding:3rem;border-top:1px solid rgba(201,160,160,0.1);display:flex;align-items:center;justify-content:space-between;}
+.pf-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--rose-light);letter-spacing:0.1em;}
+.pf-nav{display:flex;gap:2rem;}
+.pf-nav a{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);transition:color 0.3s;}.pf-nav a:hover{color:var(--cream);}
+.pf-next{display:flex;align-items:center;gap:0.8rem;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);cursor:pointer;transition:color 0.3s;}.pf-next:hover{color:var(--cream);}
+.pf-next-arrow{width:2rem;height:2rem;border:1px solid rgba(201,160,160,0.2);display:flex;align-items:center;justify-content:center;transition:all 0.3s;}.pf-next:hover .pf-next-arrow{border-color:var(--rose-deep);color:var(--rose);}
+@media(max-width:768px){.nav{padding:1rem 1.5rem;}.hero{grid-template-columns:1fr;}.hero-right{display:none;}.hero-left{padding:4rem 1.5rem 3rem;}.filter-bar{padding:1.5rem;}.content-grid{grid-template-columns:1fr 1fr;margin:0 1.5rem 3rem;}.card.featured{grid-column:span 2;}.section-label{padding:2rem 1.5rem 1rem;}.pa-strip{grid-template-columns:1fr;margin:0 1.5rem 3rem;}.pa-right{grid-template-columns:1fr;}.coming-banner{flex-direction:column;gap:1.5rem;margin:0 1.5rem 3rem;}.page-footer{flex-direction:column;gap:1.5rem;padding:2rem 1.5rem;}.pf-nav{flex-wrap:wrap;gap:1rem;}}
+</style>
+</head>
+<body>
+<div class="nav"><a class="nav-back" href="../index.html">Ajando.com</a><span class="nav-section">Film & Video</span><div class="nav-logo">AJANDO</div></div>
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">The Cinematic World</p>
+    <h1 class="hero-title">Film.<br><em>Video.</em><br>Vision.</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">Two formats. One obsession. Deep analysis of what's on screen — and playful, personality-driven video that lives between the frames.</p>
+    <div class="hero-stats">
+      <div><div class="h-stat-num">A</div><div class="h-stat-label">Film (Intellectual)</div></div>
+      <div style="width:1px;background:rgba(201,160,160,0.15);"></div>
+      <div><div class="h-stat-num">B</div><div class="h-stat-label">Video (Personality)</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-reel">
+      <div class="reel-cell" style="background:#1a1010;"><div class="reel-bg"><span class="reel-bg-text">FILM</span></div><div class="reel-cell-inner"><span class="reel-label">Analysis</span></div></div>
+      <div class="reel-cell" style="background:#12100e;"><div class="reel-bg"><span class="reel-bg-text">CHAR</span></div><div class="reel-cell-inner"><span class="reel-label">Character</span></div></div>
+      <div class="reel-cell" style="background:#160f0a;"><div class="reel-bg"><span class="reel-bg-text">LOOK</span></div><div class="reel-cell-inner"><span class="reel-label">Look Book</span></div></div>
+      <div class="reel-cell" style="background:#0e0c0b;"><div class="reel-bg"><span class="reel-bg-text">VID</span></div><div class="reel-cell-inner"><span class="reel-label">Video</span></div></div>
+    </div>
+    <div class="hero-overlay-grad"></div>
+  </div>
+</section>
+<div class="scroll-hint"><div class="scroll-hint-line"></div>Explore</div>
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="filter-btn active" data-filter="all"><span>All</span></button>
+  <button class="filter-btn" data-filter="analysis"><span>Film Analysis</span></button>
+  <button class="filter-btn" data-filter="character"><span>Character</span></button>
+  <button class="filter-btn" data-filter="lookbook"><span>Look Book</span></button>
+  <button class="filter-btn" data-filter="video"><span>Video</span></button>
+  <button class="filter-btn" data-filter="tropes"><span>Tropes</span></button>
+  <span class="results-count"><span class="count-num" id="count">9</span> pieces</span>
+</div>
+<div class="section-label"><span class="section-label-text">Part A</span><div class="section-label-line"></div><span class="section-label-title">Film — Intellectual</span></div>
+<div class="content-grid" id="grid">
+  <div class="card featured" data-cat="analysis"><div class="card-bg"><div class="card-bg-pattern" style="background:linear-gradient(135deg,#1a0f0f,#2a1515,#1a0f0f);"><span class="card-bg-letter" style="color:rgba(201,160,160,0.08);">ANAL</span></div></div><div class="card-overlay"></div><div class="card-arrow">→</div><div class="card-content"><div class="card-cat"><span class="card-cat-dot"></span>Film Analysis</div><div class="card-title">The Language of Silence in African Cinema</div><div class="card-sub">How directors use negative space, pause, and restraint to communicate what dialogue cannot.</div><div class="card-tags"><span class="card-tag">Themes</span><span class="card-tag">African Film</span><span class="card-tag">Analysis</span></div></div></div>
+  <div class="card" data-cat="character"><div class="card-bg"><div class="card-bg-pattern" style="background:linear-gradient(160deg,#1a1208,#2a1f10,#0e0c0a);"><span class="card-bg-letter" style="color:rgba(176,128,96,0.08);">CHAR</span></div></div><div class="card-overlay"></div><div class="card-arrow">→</div><div class="card-content"><div class="card-cat"><span class="card-cat-dot"></span>Character Analysis</div><div class="card-title">She Wasn't the Villain. She Was Just Tired.</div><div class="card-sub">Unpacking the misread woman — how female antagonists are written, coded, and why audiences root against them.</div><div class="card-tags"><span class="card-tag">Character</span><span class="card-tag">Feminism</span></div></div></div>
+  <div class="card" data-cat="lookbook"><div class="card-bg"><div class="card-bg-pattern" style="background:linear-gradient(135deg,#1a1010,#2a1a1a,#120808);"><span class="card-bg-letter" style="color:rgba(201,160,160,0.08);">LOOK</span></div></div><div class="card-overlay"></div><div class="card-arrow">→</div><div class="card-content"><div class="card-cat"><span class="card-cat-dot"></span>Look Book Critique</div><div class="card-title">Costuming as Character: What They Wore Told Us Everything</div><div class="card-sub">A wardrobe deep dive — how costume design reveals psychological arc before a single line of dialogue.</div><div class="card-tags"><span class="card-tag">Look Book</span><span class="card-tag">Fashion</span><span class="card-tag">Film</span></div></div></div>
+  <div class="card" data-cat="tropes"><div class="card-bg"><div class="card-bg-pattern" style="background:linear-gradient(135deg,#0e0c0a,#1a1510,#0e0c0a);"><span class="card-bg-letter" style="color:rgba(201,160,160,0.06);">TROP</span></div></div><div class="card-overlay"></div><div class="card-arrow">→</div><div class="card-content"><div class="card-cat"><span class="card-cat-dot"></span>Tropes</div><div class="card-title">The Manic Pixie Was Never Free</div><div class="card-sub">Dismantling the trope that sold us a fantasy — who was she actually written for?</div><div class="card-tags"><span class="card-tag">Tropes</span><span class="card-tag">Gender</span></div></div></div>
+  <div class="card" data-cat="analysis"><div class="card-bg"><div class="card-bg-pattern" style="background:linear-gradient(160deg,#160f08,#2a1a0e,#100c08);"><span class="card-bg-letter" style="color:rgba(176,128,96,0.07);">FILM</span></div></div><div class="card-overlay"></div><div class="card-arrow">→</div><div class="card-content"><div class="card-cat"><span class="card-cat-dot"></span>Film Analysis</div><div class="card-title">When the Score Does More Than the Script</div><div class="card-sub">How composers plant emotional cues the audience never consciously registers — until the final scene lands.</div><div class="card-tags"><span class="card-tag">Score</span><span class="card-tag">Analysis</span></div></div></div>
+</div>
+<div class="pa-strip"><div class="pa-left"><p class="pa-title-sm">Behind the camera</p><h3 class="pa-title">PA Experience — On Set & In the Room</h3></div><div class="pa-right"><div class="pa-item"><div class="pa-item-title">On Set</div><div class="pa-item-text">First-hand stories, lessons, and observations from working as a production assistant.</div></div><div class="pa-item"><div class="pa-item-title">Writers' Room</div><div class="pa-item-text">Inside the room where stories are born — notes from the table, the silences, the debates.</div></div><div class="pa-item"><div class="pa-item-title">The Industry</div><div class="pa-item-text">Honest takes on navigating the film industry as a young African woman.</div></div><div class="pa-item"><div class="pa-item-title">Craft & Process</div><div class="pa-item-text">How films are actually made — the logistics, the chaos, the rewrites, and the magic.</div></div></div></div>
+<div class="marquee"><div class="marquee-inner">Character Analysis <span class="sep">·</span> Themes <span class="sep">·</span> Look Book Critique <span class="sep">·</span> Tropes <span class="sep">·</span> PA Experience <span class="sep">·</span> Lip Sync <span class="sep">·</span> Character Outfits <span class="sep">·</span> Book Aesthetics <span class="sep">·</span> Cooking Scenes <span class="sep">·</span> Visual Storytelling <span class="sep">·</span> Character Analysis <span class="sep">·</span> Themes <span class="sep">·</span> Look Book Critique <span class="sep">·</span> Tropes <span class="sep">·</span> PA Experience <span class="sep">·</span> Lip Sync <span class="sep">·</span> Character Outfits <span class="sep">·</span> Book Aesthetics <span class="sep">·</span> Cooking Scenes <span class="sep">·</span> Visual Storytelling <span class="sep">·</span></div></div>
+<div class="section-label"><span class="section-label-text">Part B</span><div class="section-label-line"></div><span class="section-label-title">Video — Personality</span></div>
+<div class="content-grid">
+  <div class="card" data-cat="video"><div class="card-bg"><div class="card-bg-pattern" style="background:linear-gradient(135deg,#1a0e0e,#281515,#120a0a);"><span class="card-bg-letter" style="color:rgba(201,160,160,0.07);">SYNC</span></div></div><div class="card-overlay"></div><div class="card-arrow">→</div><div class="card-content"><div class="card-cat"><span class="card-cat-dot"></span>Lip Sync</div><div class="card-title">Embodied: Lip Sync as Performance Art</div><div class="card-sub">Not just mouthing words — inhabiting characters, moods, and moments with full physical commitment.</div><div class="card-tags"><span class="card-tag">Lip Sync</span><span class="card-tag">Performance</span></div></div></div>
+  <div class="card" data-cat="video"><div class="card-bg"><div class="card-bg-pattern" style="background:linear-gradient(160deg,#1a1208,#251a0e,#100e08);"><span class="card-bg-letter" style="color:rgba(176,128,96,0.08);">FIT</span></div></div><div class="card-overlay"></div><div class="card-arrow">→</div><div class="card-content"><div class="card-cat"><span class="card-cat-dot"></span>Character Outfits</div><div class="card-title">If She Existed, She'd Dress Like This</div><div class="card-sub">Bringing fictional characters into the real wardrobe. Styling fictional icons with real pieces.</div><div class="card-tags"><span class="card-tag">Outfits</span><span class="card-tag">Characters</span><span class="card-tag">Fashion</span></div></div></div>
+  <div class="card featured" data-cat="video"><div class="card-bg"><div class="card-bg-pattern" style="background:linear-gradient(135deg,#0e0c08,#1a1610,#0e0c08);"><span class="card-bg-letter" style="color:rgba(201,160,160,0.06);">COOK</span></div></div><div class="card-overlay"></div><div class="card-arrow">→</div><div class="card-content"><div class="card-cat"><span class="card-cat-dot"></span>Cooking Scenes</div><div class="card-title">Cooking Like a Main Character — Visual Storytelling in the Kitchen</div><div class="card-sub">Food as narrative. Each recipe is a scene, each ingredient a detail.</div><div class="card-tags"><span class="card-tag">Cooking</span><span class="card-tag">Storytelling</span><span class="card-tag">Visual</span></div></div></div>
+  <div class="card" data-cat="video"><div class="card-bg"><div class="card-bg-pattern" style="background:linear-gradient(135deg,#1a1010,#241616,#100c0c);"><span class="card-bg-letter" style="color:rgba(201,160,160,0.07);">BOOK</span></div></div><div class="card-overlay"></div><div class="card-arrow">→</div><div class="card-content"><div class="card-cat"><span class="card-cat-dot"></span>Book Aesthetics</div><div class="card-title">My Book Characters as Real Moods</div><div class="card-sub">The characters she's writing — visualized. Moodboards, aesthetics, and the vibes between chapters.</div><div class="card-tags"><span class="card-tag">Book</span><span class="card-tag">Aesthetics</span></div></div></div>
+</div>
+<div class="coming-banner"><div><div class="coming-title-sm">In the works</div><div class="coming-title">Short Film Reviews & Director Spotlights</div><div class="coming-sub">Long-form video essays on Nairobi's independent film scene — coming soon.</div></div><button class="coming-btn">Notify Me</button></div>
+<div class="page-footer"><div class="pf-logo">AJANDO</div><nav class="pf-nav"><a href="health-fitness.html">Health & Fitness</a><a href="books-stories.html">Books & Stories</a><a href="fashion-beauty.html">Fashion</a><a href="mental-health.html">Mental Health</a><a href="../index.html#about">About</a></nav><a href="health-fitness.html" class="pf-next">Next: Health & Fitness<div class="pf-next-arrow">→</div></a></div>
+<script>
+const btns=document.querySelectorAll('.filter-btn'),cards=document.querySelectorAll('.card[data-cat]'),countEl=document.getElementById('count');
+btns.forEach(btn=>{btn.addEventListener('click',()=>{btns.forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;let v=0;cards.forEach(c=>{const s=f==='all'||c.dataset.cat===f;c.classList.toggle('hidden',!s);if(s)v++;});countEl.textContent=v;});});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)';}});},{threshold:0.1});
+document.querySelectorAll('.card,.pa-item,.section-label').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(28px)';el.style.transition=`opacity 0.7s ease ${i*0.06}s,transform 0.7s ease ${i*0.06}s`;obs.observe(el);});
+</script>
+</body>
+</html>

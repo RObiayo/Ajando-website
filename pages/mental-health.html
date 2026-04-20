@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mental Health — AJANDO</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--black:#0a0807;--black-soft:#141010;--rose:#c9a0a0;--rose-light:#e8cece;--rose-deep:#a07070;--cream:#f5ede8;--text-dim:#9a8880;--lav:#a898c8;--lav-light:#ccc0e8;--lav-dim:#6858a0;--lav-soft:#382858;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Montserrat',sans-serif;overflow-x:hidden;cursor:crosshair;}
+a{text-decoration:none;color:inherit;}
+.nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(10,8,7,0.97);border-bottom:1px solid rgba(168,152,200,0.1);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;letter-spacing:0.15em;color:var(--rose-light);}
+.nav-back{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:0.5rem;transition:color 0.3s;}.nav-back:hover{color:var(--rose-light);}.nav-back::before{content:'←';}
+.nav-section{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--lav);}
+.hero{min-height:95vh;position:relative;overflow:hidden;display:flex;align-items:center;opacity:0;animation:fadeIn 1.2s ease forwards 0.1s;}
+.orb{position:absolute;border-radius:50%;pointer-events:none;}
+.orb1{width:60vw;height:60vw;background:radial-gradient(circle,rgba(56,40,88,0.55) 0%,transparent 70%);top:50%;right:-15vw;transform:translateY(-50%);animation:orbP 6s ease-in-out infinite;}
+.orb2{width:28vw;height:28vw;background:radial-gradient(circle,rgba(138,170,152,0.12) 0%,transparent 70%);bottom:12%;left:8%;animation:orbP 8s ease-in-out infinite 1s;}
+@keyframes orbP{0%,100%{opacity:0.6;}50%{opacity:0.95;}}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;width:100%;padding:0 3rem;gap:4rem;align-items:center;}
+.eyebrow{font-size:0.58rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--lav);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem;opacity:0;animation:up 0.8s ease forwards 0.5s;}
+.eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--lav);}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,6.5vw,5.8rem);font-weight:900;line-height:0.9;color:var(--cream);opacity:0;animation:up 0.9s ease forwards 0.65s;}
+.hero-title em{color:var(--lav-light);font-style:italic;display:block;}
+.hero-rule{width:3rem;height:1px;background:var(--lav-dim);margin:2rem 0;opacity:0;animation:grow 0.8s ease forwards 1s;transform-origin:left;}
+@keyframes grow{from{width:0;opacity:0;}to{width:3rem;opacity:1;}}
+.hero-desc{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(245,237,232,0.68);line-height:1.95;max-width:420px;opacity:0;animation:up 0.8s ease forwards 1.05s;}
+.hero-btns{margin-top:2.5rem;display:flex;gap:1rem;align-items:center;opacity:0;animation:up 0.8s ease forwards 1.2s;}
+.btn-lav{background:var(--lav-dim);color:var(--cream);font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:0.9rem 2rem;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;transition:background 0.3s;}.btn-lav:hover{background:var(--lav);}
+.btn-ghost{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:0.5rem;transition:color 0.3s;}.btn-ghost:hover{color:var(--cream);}.btn-ghost::after{content:'→';}
+.affirmations{border:1px solid rgba(168,152,200,0.12);opacity:0;animation:up 0.8s ease forwards 1.2s;}
+.aff{padding:1.4rem 2rem;border-bottom:1px solid rgba(168,152,200,0.1);transition:background 0.4s;cursor:default;}.aff:last-child{border-bottom:none;}.aff:hover{background:rgba(56,40,88,0.2);}
+.aff-text{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:rgba(245,237,232,0.58);line-height:1.7;transition:color 0.4s;}.aff:hover .aff-text{color:rgba(245,237,232,0.9);}
+.aff-line{width:0;height:1px;background:var(--lav-dim);margin-top:0.5rem;transition:width 0.5s;}.aff:hover .aff-line{width:2rem;}
+.sl{padding:3rem 3rem 1.5rem;display:flex;align-items:center;gap:1.5rem;}
+.sl-tag{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--lav-dim);}
+.sl-rule{flex:1;height:1px;background:rgba(168,152,200,0.1);}
+.sl-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--cream);}
+.story{margin:0 3rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(168,152,200,0.06);}
+.story-l{background:var(--black);padding:4rem;position:relative;overflow:hidden;}
+.story-l::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--lav-dim),transparent);}
+.story-bg{position:absolute;bottom:-1.5rem;right:-1rem;font-family:'Playfair Display',serif;font-size:9rem;font-weight:900;font-style:italic;color:rgba(168,152,200,0.04);pointer-events:none;line-height:1;}
+.story-tag{font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--lav);margin-bottom:1.5rem;}
+.story-h{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;line-height:1.1;color:var(--cream);margin-bottom:1.5rem;}
+.story-h em{color:var(--lav-light);font-style:italic;}
+.story-quote{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(245,237,232,0.65);line-height:1.95;margin-bottom:1.5rem;}
+.story-body{font-size:0.7rem;color:var(--text-dim);line-height:2;font-weight:300;margin-bottom:2rem;}
+.story-btn{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;border:1px solid var(--lav-dim);color:var(--lav-light);padding:0.8rem 1.8rem;display:inline-block;cursor:pointer;transition:all 0.3s;}.story-btn:hover{background:var(--lav-dim);color:var(--cream);}
+.story-r{background:var(--black-soft);padding:4rem;display:flex;flex-direction:column;gap:2rem;justify-content:center;}
+.s-stat{border-left:2px solid rgba(168,152,200,0.15);padding-left:1.5rem;transition:border-color 0.3s;}.s-stat:hover{border-left-color:var(--lav-dim);}
+.s-stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--lav-light);line-height:1;}
+.s-stat-lbl{font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--lav);margin-top:0.3rem;}
+.s-stat-txt{font-size:0.65rem;color:var(--text-dim);line-height:1.8;font-weight:300;margin-top:0.3rem;}
+.org{margin:0 3rem 5rem;border:1px solid rgba(168,152,200,0.12);overflow:hidden;}
+.org-top{background:var(--lav-soft);padding:3rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.org-badge{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.52rem;letter-spacing:0.3em;text-transform:uppercase;background:rgba(168,152,200,0.15);color:var(--lav-light);padding:0.35rem 0.8rem;margin-bottom:1.5rem;border:1px solid rgba(168,152,200,0.25);}
+.pulse{width:6px;height:6px;background:var(--lav);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.8);}}
+.org-h{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:900;color:var(--cream);line-height:1.05;}
+.org-h em{color:var(--lav-light);font-style:italic;}
+.org-sub{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:rgba(245,237,232,0.6);line-height:1.8;margin-top:0.8rem;}
+.org-desc{font-size:0.7rem;color:rgba(245,237,232,0.55);line-height:2;font-weight:300;}
+.org-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(168,152,200,0.08);}
+.org-cell{padding:2.5rem 2rem;border-right:1px solid rgba(168,152,200,0.08);transition:background 0.3s;cursor:pointer;}.org-cell:last-child{border-right:none;}.org-cell:hover{background:rgba(56,40,88,0.15);}.org-cell:hover .org-arr{opacity:1;transform:translate(0,0);}
+.org-icon{font-size:1.4rem;margin-bottom:1rem;display:block;}
+.org-cell-h{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--cream);margin-bottom:0.5rem;}
+.org-cell-p{font-size:0.65rem;color:var(--text-dim);line-height:1.8;font-weight:300;}
+.org-arr{font-size:0.8rem;color:var(--lav);margin-top:1rem;opacity:0;transform:translate(-4px,0);transition:all 0.3s;display:block;}
+.fmh{margin:0 3rem 5rem;}
+.fmh-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;padding-bottom:2rem;}
+.fmh-h{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;color:var(--cream);line-height:1.1;}
+.fmh-h em{color:var(--rose);font-style:italic;}
+.fmh-p{font-size:0.7rem;color:var(--text-dim);line-height:2;font-weight:300;}
+.fmh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(168,152,200,0.05);}
+.fc{background:var(--black);padding:2.5rem;position:relative;overflow:hidden;cursor:pointer;transition:background 0.4s;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;}.fc:hover{background:rgba(56,40,88,0.2);}.fc:hover .fc-excerpt{max-height:5rem;opacity:1;}.fc:hover .fc-arr{opacity:1;transform:translate(0,0);}
+.fc.wide{grid-column:span 2;min-height:320px;}
+.fc-bgw{position:absolute;top:0.5rem;right:1rem;font-family:'Playfair Display',serif;font-size:5.5rem;font-weight:900;font-style:italic;color:rgba(168,152,200,0.05);line-height:1;pointer-events:none;}
+.fc-line{width:2rem;height:1px;background:var(--lav-dim);margin-bottom:1rem;}
+.fc-cat{font-size:0.52rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--lav);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;}
+.fc-dot{width:3px;height:3px;border-radius:50%;background:var(--lav);display:inline-block;}
+.fc-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--cream);line-height:1.25;}.fc.wide .fc-title{font-size:1.5rem;}
+.fc-excerpt{font-size:0.62rem;color:var(--text-dim);line-height:1.7;max-height:0;overflow:hidden;opacity:0;transition:all 0.4s;margin-top:0.4rem;}
+.fc-tags{display:flex;gap:0.3rem;flex-wrap:wrap;margin-top:0.8rem;}
+.fc-tag{font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(168,152,200,0.18);color:var(--text-dim);padding:0.18rem 0.45rem;}
+.fc-arr{position:absolute;top:1.5rem;right:1.5rem;font-size:0.9rem;color:var(--lav);opacity:0;transform:translate(-4px,-4px);transition:all 0.35s;z-index:2;}
+.mq{background:var(--black-soft);border-top:1px solid rgba(168,152,200,0.07);border-bottom:1px solid rgba(168,152,200,0.07);padding:0.7rem 0;overflow:hidden;white-space:nowrap;margin-bottom:4rem;}
+.mq-inner{display:inline-block;animation:mq 24s linear infinite;font-size:0.58rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-dim);}
+@keyframes mq{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.sep{color:var(--lav-dim);margin:0 1rem;}
+.support{margin:0 3rem 5rem;border:1px solid rgba(168,152,200,0.1);}
+.support-hdr{padding:3rem;border-bottom:1px solid rgba(168,152,200,0.08);display:flex;align-items:flex-end;justify-content:space-between;}
+.support-h{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--cream);}
+.support-sub{font-size:0.65rem;color:var(--text-dim);font-weight:300;margin-top:0.3rem;}
+.support-badge{font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;background:rgba(168,152,200,0.08);color:var(--lav);padding:0.35rem 0.8rem;border:1px solid rgba(168,152,200,0.2);}
+.support-cards{display:grid;grid-template-columns:repeat(3,1fr);}
+.sc{padding:3rem;border-right:1px solid rgba(168,152,200,0.08);position:relative;cursor:pointer;transition:background 0.4s;}.sc:last-child{border-right:none;}.sc:hover{background:rgba(56,40,88,0.12);}.sc:hover .sc-icon{transform:scale(1.1);}.sc:hover .sc-cta{opacity:1;transform:translateY(0);}
+.sc-icon{font-size:2rem;margin-bottom:1.5rem;display:block;transition:transform 0.4s;}
+.sc-soon{position:absolute;top:1.5rem;right:1.5rem;font-size:0.48rem;letter-spacing:0.2em;text-transform:uppercase;background:rgba(201,160,160,0.08);color:var(--rose);padding:0.2rem 0.55rem;border:1px solid rgba(201,160,160,0.15);}
+.sc-h{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--cream);margin-bottom:0.8rem;}
+.sc-p{font-size:0.68rem;color:var(--text-dim);line-height:1.9;font-weight:300;}
+.sc-cta{font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--lav);display:flex;align-items:center;gap:0.5rem;margin-top:1.5rem;opacity:0;transform:translateY(4px);transition:all 0.35s;}.sc-cta::after{content:'→';}
+.resources{margin:0 3rem 5rem;padding:3.5rem;background:var(--black-soft);border:1px solid rgba(168,152,200,0.1);position:relative;overflow:hidden;}
+.resources::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--lav-dim),var(--rose-deep),transparent);}
+.res-tag{font-size:0.58rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--lav);margin-bottom:1rem;}
+.res-h{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--cream);margin-bottom:0.8rem;}
+.res-sub{font-size:0.7rem;color:var(--text-dim);font-weight:300;line-height:1.9;max-width:600px;margin-bottom:2.5rem;}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.ri{padding:1.5rem;border:1px solid rgba(168,152,200,0.12);transition:all 0.3s;cursor:pointer;}.ri:hover{background:rgba(56,40,88,0.15);border-color:rgba(168,152,200,0.25);}.ri:hover .ri-arr{opacity:1;}
+.ri-type{font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--lav);margin-bottom:0.4rem;}
+.ri-name{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.4rem;}
+.ri-desc{font-size:0.62rem;color:var(--text-dim);line-height:1.7;font-weight:300;}
+.ri-arr{font-size:0.8rem;color:var(--lav);margin-top:0.8rem;opacity:0;transition:opacity 0.3s;display:block;}
+.crisis{margin:0 3rem 5rem;padding:2rem 3rem;border:1px solid rgba(201,160,160,0.15);background:rgba(201,160,160,0.04);display:flex;align-items:center;gap:2rem;}
+.crisis-icon{font-size:1.5rem;flex-shrink:0;}
+.crisis-txt{font-size:0.68rem;color:var(--text-dim);line-height:1.9;font-weight:300;}
+.crisis-txt strong{color:var(--rose-light);font-weight:500;}
+.crisis-num{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--rose-light);margin-top:0.3rem;display:block;}
+.pf{padding:3rem;border-top:1px solid rgba(201,160,160,0.1);display:flex;align-items:center;justify-content:space-between;}
+.pf-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--rose-light);letter-spacing:0.1em;}
+.pf-nav{display:flex;gap:2rem;}
+.pf-nav a{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);transition:color 0.3s;}.pf-nav a:hover{color:var(--cream);}
+.pf-end{display:flex;align-items:center;gap:0.8rem;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);cursor:pointer;transition:color 0.3s;}.pf-end:hover{color:var(--cream);}
+.pf-arrow{width:2rem;height:2rem;border:1px solid rgba(201,160,160,0.2);display:flex;align-items:center;justify-content:center;transition:all 0.3s;}.pf-end:hover .pf-arrow{border-color:var(--rose-deep);color:var(--rose);}
+@keyframes up{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@media(max-width:768px){.nav{padding:1rem 1.5rem;}.hero-inner{grid-template-columns:1fr;padding:0 1.5rem;}.affirmations{display:none;}.sl{padding:2rem 1.5rem 1rem;}.story{grid-template-columns:1fr;margin:0 1.5rem 3rem;}.org{margin:0 1.5rem 3rem;}.org-top{grid-template-columns:1fr;}.org-grid{grid-template-columns:1fr 1fr;}.fmh{margin:0 1.5rem 3rem;}.fmh-intro{grid-template-columns:1fr;gap:1.5rem;}.fmh-grid{grid-template-columns:1fr;}.fc.wide{grid-column:span 1;}.support{margin:0 1.5rem 3rem;}.support-cards{grid-template-columns:1fr;}.sc{border-right:none;border-bottom:1px solid rgba(168,152,200,0.08);}.resources{margin:0 1.5rem 3rem;padding:2rem 1.5rem;}.res-grid{grid-template-columns:1fr;}.crisis{margin:0 1.5rem 3rem;flex-direction:column;}.pf{flex-direction:column;gap:1.5rem;padding:2rem 1.5rem;text-align:center;}.pf-nav{flex-wrap:wrap;justify-content:center;}}
+</style>
+</head>
+<body>
+<div class="nav"><a class="nav-back" href="../index.html">Ajando.com</a><span class="nav-section">Mental Health</span><div class="nav-logo">AJANDO</div></div>
+<section class="hero">
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow">Healing Hearts</p>
+      <h1 class="hero-title">You Are<br>Allowed<br><em>To Heal.</em></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-desc">This isn't a wellness brand. It's an honest space — for advocacy, for community, and the kind of conversations that actually help. Molly's story, the Healing Hearts organization, and everything in between.</p>
+      <div class="hero-btns"><button class="btn-lav">Healing Hearts</button><a href="#story" class="btn-ghost">Read Her Story</a></div>
+    </div>
+    <div class="affirmations">
+      <div class="aff"><div class="aff-text">"You don't have to be okay all the time. That was never the deal."</div><div class="aff-line"></div></div>
+      <div class="aff"><div class="aff-text">"Healing is not linear. Some days you go backwards and that still counts."</div><div class="aff-line"></div></div>
+      <div class="aff"><div class="aff-text">"Asking for help is not weakness. It is the bravest thing a person can do."</div><div class="aff-line"></div></div>
+      <div class="aff"><div class="aff-text">"Your story isn't over. Not even close."</div><div class="aff-line"></div></div>
+      <div class="aff"><div class="aff-text">"You are allowed to take up space — in rooms, in conversations, in your own life."</div><div class="aff-line"></div></div>
+    </div>
+  </div>
+</section>
+<div class="sl" id="story"><span class="sl-tag">Chapter I</span><div class="sl-rule"></div><span class="sl-title">Molly's Advocacy Story</span></div>
+<div class="story">
+  <div class="story-l">
+    <div class="story-bg">Story</div>
+    <div class="story-tag">My Journey</div>
+    <h2 class="story-h">The moment I stopped<br>pretending I was <em>fine.</em></h2>
+    <p class="story-quote">"There's a version of me that would have told you everything was okay. Smiled at the right moments. Said 'I'm good' on autopilot. She existed for a long time. This page — this whole world — is what happened after I decided to stop being her."</p>
+    <p class="story-body">[Molly's full advocacy story will go here — the honest, personal account of her mental health journey, what led her to create Healing Hearts, and why this work matters to her. In her own words.]</p>
+    <a href="#" class="story-btn">Read the Full Story &rarr;</a>
+  </div>
+  <div class="story-r">
+    <div class="s-stat"><div class="s-stat-num">1 in 4</div><div class="s-stat-lbl">People affected</div><div class="s-stat-txt">1 in 4 people will experience a mental health condition in their lifetime. The silence around it costs lives.</div></div>
+    <div class="s-stat"><div class="s-stat-num">Nairobi</div><div class="s-stat-lbl">Where it started</div><div class="s-stat-txt">A city that moves fast and talks loud — but rarely about the quiet things. That gap is where Healing Hearts was born.</div></div>
+    <div class="s-stat"><div class="s-stat-num">Now</div><div class="s-stat-lbl">Still in the work</div><div class="s-stat-txt">Advocacy isn't a milestone. It's a practice — in every conversation, every piece of content, every community space she creates.</div></div>
+  </div>
+</div>
+<div class="sl"><span class="sl-tag">Chapter II</span><div class="sl-rule"></div><span class="sl-title">Healing Hearts Organization</span></div>
+<div class="org">
+  <div class="org-top">
+    <div><div class="org-badge"><span class="pulse"></span>Active Organization</div><h2 class="org-h">Healing <em>Hearts</em></h2><p class="org-sub">A community built for the people who feel things deeply — and need a space that meets them there.</p></div>
+    <p class="org-desc">Healing Hearts is Molly's mental health advocacy organization. Founded in Nairobi, it exists to reduce stigma, create safe spaces for honest conversation, and support people navigating their mental health journeys — especially in communities where these conversations have historically been silenced.</p>
+  </div>
+  <div class="org-grid">
+    <div class="org-cell"><span class="org-icon">&#128483;</span><div class="org-cell-h">Safe Conversations</div><div class="org-cell-p">Creating spaces where people can speak honestly about their mental health without fear of judgment or dismissal.</div><span class="org-arr">&rarr;</span></div>
+    <div class="org-cell"><span class="org-icon">&#129309;</span><div class="org-cell-h">Community Support</div><div class="org-cell-p">Building peer networks and support structures rooted in empathy, lived experience, and genuine care.</div><span class="org-arr">&rarr;</span></div>
+    <div class="org-cell"><span class="org-icon">&#128226;</span><div class="org-cell-h">Advocacy & Awareness</div><div class="org-cell-p">Pushing for cultural and systemic change — in Nairobi, in Kenya, and in every room Healing Hearts enters.</div><span class="org-arr">&rarr;</span></div>
+    <div class="org-cell"><span class="org-icon">&#127807;</span><div class="org-cell-h">Education & Resources</div><div class="org-cell-p">Sharing evidence-based information in accessible, culturally relevant ways that meet people where they are.</div><span class="org-arr">&rarr;</span></div>
+  </div>
+</div>
+<div class="sl"><span class="sl-tag">Chapter III</span><div class="sl-rule"></div><span class="sl-title">Film Through a Mental Health Lens</span></div>
+<div class="fmh">
+  <div class="fmh-intro"><h2 class="fmh-h">When cinema becomes a<br><em>mirror</em> &mdash; not just a screen.</h2><p class="fmh-p">Some of Molly's film analysis is cross-posted here — because the stories we tell on screen are inseparable from the psychological truths we carry. These pieces live in Film & Video as analysis, and here as advocacy. Both are true at once.</p></div>
+  <div class="fmh-grid">
+    <div class="fc wide"><div class="fc-bgw">FILM</div><div class="fc-line"></div><div class="fc-cat"><span class="fc-dot"></span>Film &times; Mental Health</div><div class="fc-title">How Cinema Has Always Known What Therapy Is Still Learning to Say</div><div class="fc-excerpt">The greatest films don't depict mental health — they enact it. The pacing, the framing, the silence between lines: this is the language of an unquiet mind, made visible.</div><div class="fc-tags"><span class="fc-tag">Analysis</span><span class="fc-tag">Psychology</span><span class="fc-tag">Film Theory</span></div><span class="fc-arr">&rarr;</span></div>
+    <div class="fc"><div class="fc-bgw">DEPR</div><div class="fc-line"></div><div class="fc-cat"><span class="fc-dot"></span>Depression on Screen</div><div class="fc-title">What Films Get Wrong About Depression (And the Few That Get It Right)</div><div class="fc-excerpt">The crying in bed trope. The Hollywood recovery arc. A breakdown of what actually resonates — and what harms.</div><div class="fc-tags"><span class="fc-tag">Depression</span><span class="fc-tag">Representation</span></div><span class="fc-arr">&rarr;</span></div>
+    <div class="fc"><div class="fc-bgw">TRAU</div><div class="fc-line"></div><div class="fc-cat"><span class="fc-dot"></span>Trauma &amp; Narrative</div><div class="fc-title">The Backstory That Explains Everything — Why Trauma Narratives in Film Need to Evolve</div><div class="fc-excerpt">On the difference between depicting trauma as a story device and honouring it as a lived human experience.</div><div class="fc-tags"><span class="fc-tag">Trauma</span><span class="fc-tag">Narrative</span></div><span class="fc-arr">&rarr;</span></div>
+    <div class="fc"><div class="fc-bgw">HEAL</div><div class="fc-line"></div><div class="fc-cat"><span class="fc-dot"></span>Healing On Screen</div><div class="fc-title">The Films That Feel Like Therapy — A Personal Watchlist for Hard Seasons</div><div class="fc-excerpt">Curated not for being "about" mental health, but for how they feel when you need to be seen.</div><div class="fc-tags"><span class="fc-tag">Watchlist</span><span class="fc-tag">Healing</span></div><span class="fc-arr">&rarr;</span></div>
+    <div class="fc wide"><div class="fc-bgw">AFRI</div><div class="fc-line"></div><div class="fc-cat"><span class="fc-dot"></span>African Film</div><div class="fc-title">Mental Illness in African Cinema — The Silence, the Stigma, and the Films Breaking Through</div><div class="fc-excerpt">Why representation in African film matters for mental health advocacy — and what's starting to change in Nairobi and beyond.</div><div class="fc-tags"><span class="fc-tag">Africa</span><span class="fc-tag">Stigma</span><span class="fc-tag">Film</span></div><span class="fc-arr">&rarr;</span></div>
+  </div>
+</div>
+<div class="mq"><div class="mq-inner">Healing Hearts <span class="sep">&middot;</span> Mental Health Advocacy <span class="sep">&middot;</span> Support Groups <span class="sep">&middot;</span> Film &amp; Psychology <span class="sep">&middot;</span> Nairobi <span class="sep">&middot;</span> Safe Spaces <span class="sep">&middot;</span> Community <span class="sep">&middot;</span> Destigmatise <span class="sep">&middot;</span> Trauma &amp; Healing <span class="sep">&middot;</span> You Are Not Alone <span class="sep">&middot;</span> Healing Hearts <span class="sep">&middot;</span> Mental Health Advocacy <span class="sep">&middot;</span> Support Groups <span class="sep">&middot;</span> Film &amp; Psychology <span class="sep">&middot;</span> Nairobi <span class="sep">&middot;</span> Safe Spaces <span class="sep">&middot;</span> Community <span class="sep">&middot;</span> Destigmatise <span class="sep">&middot;</span></div></div>
+<div class="sl"><span class="sl-tag">Chapter IV</span><div class="sl-rule"></div><span class="sl-title">Support Groups</span></div>
+<div class="support">
+  <div class="support-hdr"><div><div class="support-h">Find Your People</div><div class="support-sub">Peer support groups — curated, facilitated, and built around genuine human connection.</div></div><span class="support-badge">Launching Soon</span></div>
+  <div class="support-cards">
+    <div class="sc"><span class="sc-icon">&#127769;</span><span class="sc-soon">Coming Soon</span><div class="sc-h">Women's Circle — Nairobi</div><div class="sc-p">A monthly in-person gathering for women navigating anxiety, burnout, grief, and the everyday weight of being a woman in this city. Facilitated by Molly and a certified counsellor.</div><div class="sc-cta">Join the Waitlist</div></div>
+    <div class="sc"><span class="sc-icon">&#128172;</span><span class="sc-soon">Coming Soon</span><div class="sc-h">Online: The Quiet Room</div><div class="sc-p">A virtual support space for people who need community but can't always show up in person. Scheduled sessions, structured sharing, and a private group channel in between.</div><div class="sc-cta">Join the Waitlist</div></div>
+    <div class="sc"><span class="sc-icon">&#127902;</span><span class="sc-soon">Coming Soon</span><div class="sc-h">Film &amp; Feelings Club</div><div class="sc-p">Watch a film. Talk about what it brought up. A monthly screening and conversation series that uses cinema as a gentle entry point into deeper emotional conversations.</div><div class="sc-cta">Join the Waitlist</div></div>
+  </div>
+</div>
+<div class="resources">
+  <div class="res-tag">For You</div>
+  <div class="res-h">If You Need Support Right Now</div>
+  <div class="res-sub">These are not sponsored recommendations. They are resources Molly trusts and has personally vetted — for people in Kenya and beyond who need somewhere to turn.</div>
+  <div class="res-grid">
+    <div class="ri"><div class="ri-type">Crisis Line &middot; Kenya</div><div class="ri-name">Befrienders Kenya</div><div class="ri-desc">Free, confidential emotional support for anyone in distress. Available by phone and walk-in. No judgment, no referral needed.</div><span class="ri-arr">&rarr; befrienderskenya.org</span></div>
+    <div class="ri"><div class="ri-type">Professional Help &middot; Kenya</div><div class="ri-name">Mental 360 Kenya</div><div class="ri-desc">A platform connecting Kenyans to vetted mental health professionals — therapists, counsellors, and psychiatrists across the country.</div><span class="ri-arr">&rarr; mental360.co.ke</span></div>
+    <div class="ri"><div class="ri-type">Community &middot; Online</div><div class="ri-name">Healing Hearts Community</div><div class="ri-desc">Molly's own community space — join the waitlist to be notified when support groups open and to access shared resources in the meantime.</div><span class="ri-arr">&rarr; Join the Waitlist</span></div>
+  </div>
+</div>
+<div class="crisis"><span class="crisis-icon">&#129948;</span><div class="crisis-txt"><strong>If you are in crisis or having thoughts of suicide, please reach out now.</strong><br>You do not have to face this alone. Befrienders Kenya offers free, confidential support &mdash; call or visit in person.<span class="crisis-num">Befrienders Kenya: +254 722 178 177</span></div></div>
+<div class="pf"><div class="pf-logo">AJANDO</div><nav class="pf-nav"><a href="film-video.html">Film &amp; Video</a><a href="health-fitness.html">Health &amp; Fitness</a><a href="books-stories.html">Books &amp; Stories</a><a href="fashion-beauty.html">Fashion &amp; Beauty</a></nav><a href="../index.html#about" class="pf-end">Meet Molly<div class="pf-arrow">&rarr;</div></a></div>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)';}});},{threshold:0.07});
+document.querySelectorAll('.s-stat,.org-cell,.fc,.sc,.ri,.sl,.aff').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(22px)';el.style.transition=`opacity 0.7s ease ${i*0.05}s,transform 0.7s ease ${i*0.05}s`;obs.observe(el);});
+</script>
+</body>
+</html>

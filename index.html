@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AJANDO — Molly Ajando</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0a0807;--black-soft:#141010;--black-mid:#1e1818;
+  --rose:#c9a0a0;--rose-light:#e8cece;--rose-deep:#a07070;
+  --choco:#6b3f2a;--choco-mid:#8a5a3f;--choco-light:#b08060;
+  --cream:#f5ede8;--text-dim:#9a8880;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Montserrat',sans-serif;overflow-x:hidden;cursor:crosshair;}
+a{text-decoration:none;color:inherit;}
+
+/* NAV */
+nav{
+  position:absolute;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.8rem 3rem;
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;letter-spacing:0.15em;color:var(--rose-light);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;font-size:0.62rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;}
+.nav-links a{color:rgba(245,237,232,0.55);transition:color 0.3s;}
+.nav-links a:hover{color:var(--rose-light);}
+.nav-cta{font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;border:1px solid var(--rose-deep);color:var(--rose-light);padding:0.5rem 1.2rem;transition:all 0.3s;}
+.nav-cta:hover{background:var(--rose-deep);color:var(--black);}
+
+/* HERO */
+.hero{
+  position:relative;min-height:100vh;overflow:hidden;
+  display:flex;align-items:flex-end;
+}
+.hero-photo{
+  position:absolute;right:0;top:0;bottom:0;width:55%;z-index:1;
+}
+/* IMPORTANT: Replace the div below with an <img> tag pointing to Molly's actual photo */
+/* Example: <img src="assets/molly-hero.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"> */
+.hero-photo-placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(160deg,#1a0f0a 0%,#3a1f10 40%,#1a0a08 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-photo-placeholder span{
+  font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;
+  font-style:italic;color:rgba(201,160,160,0.18);text-align:center;line-height:1.3;
+}
+.hero-photo::before{
+  content:'';position:absolute;inset:0;z-index:2;
+  background:
+    linear-gradient(to right, var(--black) 0%, transparent 35%),
+    linear-gradient(to top, var(--black) 0%, transparent 30%),
+    linear-gradient(to left, var(--black) 0%, transparent 20%);
+}
+.hero-bg-fill{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 30% 60%, #1a100a 0%, var(--black) 65%);}
+.hero-bg-letter{
+  position:absolute;right:3%;top:50%;transform:translateY(-50%);
+  font-family:'Playfair Display',serif;font-size:28vw;font-weight:900;font-style:italic;
+  color:rgba(201,160,160,0.03);line-height:1;pointer-events:none;z-index:0;letter-spacing:-0.05em;
+}
+.hero-content{
+  position:relative;z-index:3;
+  padding:0 3rem 5rem;max-width:600px;
+}
+.hero-eyebrow{
+  font-size:0.58rem;letter-spacing:0.45em;text-transform:uppercase;
+  color:var(--choco-light);margin-bottom:1.8rem;
+  display:flex;align-items:center;gap:1rem;
+  opacity:0;animation:up 0.8s ease forwards 0.3s;
+}
+.hero-eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--choco-light);}
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(5rem,10vw,8.5rem);
+  font-weight:900;line-height:0.88;color:var(--cream);letter-spacing:-0.01em;
+  opacity:0;animation:up 0.9s ease forwards 0.45s;
+}
+.hero-name em{color:var(--rose);font-style:italic;display:block;}
+.hero-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-style:italic;color:var(--rose-deep);
+  margin:1.8rem 0 1rem;line-height:1.7;
+  opacity:0;animation:up 0.8s ease forwards 0.75s;
+}
+.hero-desc{
+  font-size:0.7rem;font-weight:300;letter-spacing:0.04em;
+  color:var(--text-dim);max-width:340px;line-height:2.1;margin-bottom:2.5rem;
+  opacity:0;animation:up 0.8s ease forwards 0.9s;
+}
+.hero-btns{display:flex;gap:1rem;align-items:center;opacity:0;animation:up 0.8s ease forwards 1.05s;}
+.btn-primary{
+  background:var(--rose-deep);color:var(--black);
+  font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+  padding:0.9rem 2rem;transition:all 0.3s;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;
+}
+.btn-primary:hover{background:var(--rose);}
+.btn-ghost{
+  font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--text-dim);display:flex;align-items:center;gap:0.5rem;transition:color 0.3s;
+}
+.btn-ghost:hover{color:var(--cream);}
+.btn-ghost::after{content:'→';font-size:0.9rem;}
+.scroll-indicator{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:4;
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+  font-size:0.52rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-dim);
+  opacity:0;animation:fadeIn 1s ease forwards 1.5s;
+}
+.scroll-line{width:1px;height:2.5rem;background:linear-gradient(to bottom,var(--rose-deep),transparent);}
+
+/* MARQUEE */
+.marquee{background:var(--rose-deep);padding:0.75rem 0;overflow:hidden;white-space:nowrap;}
+.marquee-inner{display:inline-block;animation:marquee 22s linear infinite;font-size:0.58rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--black);font-weight:600;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* FEATURES HEADER */
+.features-header{
+  padding:5rem 3rem 3rem;display:flex;align-items:flex-end;justify-content:space-between;
+  border-bottom:1px solid rgba(201,160,160,0.1);
+}
+.features-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--choco-light);margin-bottom:1rem;}
+.features-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,4vw,3.5rem);font-weight:900;color:var(--cream);line-height:1;}
+.features-count{font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;color:rgba(201,160,160,0.1);line-height:1;}
+
+/* FEATURES GRID */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid rgba(201,160,160,0.08);}
+.feature-card{
+  padding:3rem 2.5rem;border-right:1px solid rgba(201,160,160,0.08);
+  border-bottom:1px solid rgba(201,160,160,0.08);position:relative;overflow:hidden;
+  transition:background 0.4s;cursor:pointer;display:block;color:inherit;text-decoration:none;
+}
+.feature-card:hover{background:rgba(107,63,42,0.15);}
+.feature-card:hover .feature-arrow{opacity:1;transform:translate(0,0);}
+.feature-card:hover .feature-title{color:var(--rose-light);}
+.feature-num{
+  font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;
+  color:rgba(201,160,160,0.07);position:absolute;top:1rem;right:1.5rem;line-height:1;pointer-events:none;
+}
+.feature-icon{width:2.5rem;height:2.5rem;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;font-size:1rem;}
+.icon-film{background:rgba(201,160,160,0.15);}
+.icon-health{background:rgba(107,63,42,0.3);}
+.icon-books{background:rgba(138,90,63,0.2);}
+.icon-fashion{background:rgba(201,160,160,0.1);}
+.icon-mental{background:rgba(245,237,232,0.05);}
+.feature-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--cream);margin-bottom:0.5rem;line-height:1.2;}
+.feature-sub{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:1.2rem;}
+.feature-desc{font-size:0.72rem;color:var(--text-dim);line-height:1.9;font-weight:300;}
+.feature-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.5rem;}
+.tag{font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;border:1px solid rgba(201,160,160,0.2);color:var(--text-dim);padding:0.25rem 0.6rem;}
+.feature-arrow{position:absolute;bottom:2rem;right:2rem;font-size:1.2rem;color:var(--rose);opacity:0;transform:translate(-4px,4px);transition:all 0.3s;}
+.feature-card.full{grid-column:span 3;display:grid;grid-template-columns:1fr 2fr;gap:3rem;align-items:center;}
+.feature-card.wide{grid-column:span 2;}
+
+/* EDITORIAL */
+.editorial{
+  padding:6rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+  background:var(--black-soft);position:relative;overflow:hidden;
+}
+.editorial::after{content:'AJANDO';position:absolute;bottom:-2rem;right:2rem;font-family:'Playfair Display',serif;font-size:8rem;font-weight:900;font-style:italic;color:rgba(201,160,160,0.03);pointer-events:none;line-height:1;}
+.editorial-quote{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-style:italic;line-height:1.4;color:var(--cream);}
+.editorial-quote span{color:var(--rose);}
+.editorial-attribution{margin-top:2rem;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--choco-light);display:flex;align-items:center;gap:1rem;}
+.editorial-attribution::before{content:'';display:block;width:2rem;height:1px;background:var(--choco-light);}
+.editorial-right{display:flex;flex-direction:column;gap:2rem;}
+.editorial-item{display:flex;gap:1.5rem;align-items:flex-start;padding-bottom:2rem;border-bottom:1px solid rgba(201,160,160,0.1);}
+.editorial-item:last-child{border-bottom:none;}
+.editorial-item-num{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:rgba(201,160,160,0.2);min-width:2rem;line-height:1;}
+.editorial-item-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--cream);margin-bottom:0.4rem;}
+.editorial-item-text{font-size:0.7rem;color:var(--text-dim);line-height:1.8;font-weight:300;}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:80vh;padding:7rem 3rem;gap:5rem;align-items:center;position:relative;border-top:1px solid rgba(201,160,160,0.1);}
+.about::before{content:'Who She Is';position:absolute;top:4rem;left:3rem;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--choco-light);}
+.about-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:1.5rem;}
+.about-heading{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,4vw,3.8rem);font-weight:700;line-height:1.1;color:var(--cream);}
+.about-heading em{color:var(--rose);}
+.about-right{display:flex;flex-direction:column;gap:2rem;}
+.about-text{font-family:'Cormorant Garamond',serif;font-size:1.15rem;line-height:1.9;color:rgba(245,237,232,0.75);font-style:italic;}
+.about-text-2{font-size:0.72rem;line-height:2.2;color:var(--text-dim);font-weight:300;}
+.about-stats{display:flex;gap:3rem;padding-top:2rem;border-top:1px solid rgba(201,160,160,0.15);}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--rose-light);}
+.stat-label{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-top:0.3rem;}
+
+/* FOOTER */
+footer{background:var(--black);padding:4rem 3rem 2rem;border-top:1px solid rgba(201,160,160,0.1);}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--rose-light);line-height:1;}
+.footer-tagline{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--text-dim);margin-top:0.5rem;}
+.footer-nav{display:flex;gap:4rem;}
+.footer-nav-col h4{font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:1.2rem;}
+.footer-nav-col ul{list-style:none;display:flex;flex-direction:column;gap:0.7rem;}
+.footer-nav-col li a{font-size:0.72rem;color:var(--text-dim);font-weight:300;transition:color 0.3s;}
+.footer-nav-col li a:hover{color:var(--cream);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid rgba(201,160,160,0.08);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;}
+.social-links{display:flex;gap:1.5rem;}
+.social-links a{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);transition:color 0.3s;}
+.social-links a:hover{color:var(--rose-light);}
+
+@keyframes up{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links,.nav-cta{display:none;}
+  .hero-photo{width:70%;}
+  .hero-content{padding:0 1.5rem 4rem;}
+  .features-header{padding:3rem 1.5rem 2rem;flex-direction:column;align-items:flex-start;gap:1rem;}
+  .features-grid{grid-template-columns:1fr;}
+  .feature-card.full,.feature-card.wide{grid-column:span 1;}
+  .feature-card.full{grid-template-columns:1fr;}
+  .editorial{grid-template-columns:1fr;padding:4rem 1.5rem;gap:3rem;}
+  .about{grid-template-columns:1fr;padding:4rem 1.5rem;gap:2rem;}
+  .footer-top{flex-direction:column;gap:3rem;}
+  .footer-nav{flex-direction:column;gap:2rem;}
+}
+</style>
+</head>
+<body>
+
+<div style="position:relative;">
+<nav>
+  <div class="nav-logo">AJANDO</div>
+  <ul class="nav-links">
+    <li><a href="pages/film-video.html">Film & Video</a></li>
+    <li><a href="pages/health-fitness.html">Health</a></li>
+    <li><a href="pages/books-stories.html">Books</a></li>
+    <li><a href="pages/fashion-beauty.html">Fashion</a></li>
+    <li><a href="pages/mental-health.html">Mind</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Connect</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-fill"></div>
+  <span class="hero-bg-letter">A</span>
+  <div class="hero-photo">
+    <!-- TO DO: Replace this div with Molly's actual photo -->
+    <!-- <img src="assets/molly-hero.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"> -->
+    <div class="hero-photo-placeholder">
+      <span>Molly's<br>photo<br>here</span>
+    </div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Creative</p>
+    <h1 class="hero-name">MOL<span style="display:inline;">LY</span><em>AJANDO</em></h1>
+    <p class="hero-sub">Storyteller. Analyst. Creator.<br>Advocate. Author in the making.</p>
+    <p class="hero-desc">Where film meets fashion, and healing lives between the pages. A space for every version of her world.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Enter the World</button>
+      <a href="#worlds" class="btn-ghost">Her Worlds</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-inner">
+    Film & Analysis &nbsp;·&nbsp; Health & Fitness &nbsp;·&nbsp; Books & Stories &nbsp;·&nbsp; Fashion & Beauty &nbsp;·&nbsp; Mental Health &nbsp;·&nbsp; Creative Expression &nbsp;·&nbsp; Nairobi &nbsp;·&nbsp; Film & Analysis &nbsp;·&nbsp; Health & Fitness &nbsp;·&nbsp; Books & Stories &nbsp;·&nbsp; Fashion & Beauty &nbsp;·&nbsp; Mental Health &nbsp;·&nbsp; Creative Expression &nbsp;·&nbsp; Nairobi &nbsp;·&nbsp;
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features-header" id="worlds">
+  <div>
+    <p class="features-label">01 — The Worlds</p>
+    <h2 class="features-title">Her Worlds</h2>
+  </div>
+  <div class="features-count">05</div>
+</div>
+
+<div class="features-grid">
+  <a href="pages/film-video.html" class="feature-card wide">
+    <div class="feature-num">01</div>
+    <div class="feature-icon icon-film">🎬</div>
+    <p class="feature-sub">Film & Video</p>
+    <h3 class="feature-title">The Cinematic Mind</h3>
+    <p class="feature-desc">From sharp character dissections to lip-sync storytelling — Ajando lives on both sides of the lens.</p>
+    <div class="feature-tags"><span class="tag">Analysis</span><span class="tag">Themes</span><span class="tag">Character</span><span class="tag">Look Books</span><span class="tag">PA Experience</span></div>
+    <span class="feature-arrow">→</span>
+  </a>
+  <a href="pages/health-fitness.html" class="feature-card">
+    <div class="feature-num">02</div>
+    <div class="feature-icon icon-health">🌿</div>
+    <p class="feature-sub">Health & Fitness</p>
+    <h3 class="feature-title">Body & Ritual</h3>
+    <p class="feature-desc">Gym aesthetics, superfood exploration, and educational content on nutrition and movement.</p>
+    <div class="feature-tags"><span class="tag">Gym Journey</span><span class="tag">Superfoods</span><span class="tag">Education</span></div>
+    <span class="feature-arrow">→</span>
+  </a>
+  <a href="pages/books-stories.html" class="feature-card">
+    <div class="feature-num">03</div>
+    <div class="feature-icon icon-books">📖</div>
+    <p class="feature-sub">Books & Stories</p>
+    <h3 class="feature-title">The Written World</h3>
+    <p class="feature-desc">Poems, serialized fiction, a novel in the works, and journal-style essays on faith, Nairobi, and life.</p>
+    <div class="feature-tags"><span class="tag">Poems</span><span class="tag">Novel</span><span class="tag">Essays</span></div>
+    <span class="feature-arrow">→</span>
+  </a>
+  <a href="pages/fashion-beauty.html" class="feature-card">
+    <div class="feature-num">04</div>
+    <div class="feature-icon icon-fashion">✦</div>
+    <p class="feature-sub">Fashion & Beauty</p>
+    <h3 class="feature-title">The Dressed Self</h3>
+    <p class="feature-desc">Clothes, wigs, accessories, and styled looks — each piece a sentence in a longer story.</p>
+    <div class="feature-tags"><span class="tag">Clothes</span><span class="tag">Wigs</span><span class="tag">Styled Looks</span></div>
+    <span class="feature-arrow">→</span>
+  </a>
+  <a href="pages/mental-health.html" class="feature-card full">
+    <div>
+      <div class="feature-icon icon-mental">🤍</div>
+      <p class="feature-sub">Mental Health</p>
+      <h3 class="feature-title">Healing Hearts</h3>
+    </div>
+    <div>
+      <p class="feature-desc" style="margin-bottom:1.5rem;">Ajando's advocacy story, the Healing Hearts organization, and a space where film analysis becomes a lens for emotional understanding.</p>
+      <div class="feature-tags"><span class="tag">My Story</span><span class="tag">Healing Hearts Org</span><span class="tag">Support Groups</span><span class="tag">Film & Mental Health</span></div>
+    </div>
+    <span class="feature-arrow">→</span>
+  </a>
+</div>
+
+<!-- EDITORIAL -->
+<section class="editorial">
+  <div>
+    <blockquote class="editorial-quote">"Every world I live in <span>feeds the others</span> — the screen, the gym, the page, the wardrobe, the mind."</blockquote>
+    <p class="editorial-attribution">Ajando</p>
+  </div>
+  <div class="editorial-right">
+    <div class="editorial-item">
+      <div class="editorial-item-num">I</div>
+      <div><p class="editorial-item-title">Storyteller First</p><p class="editorial-item-text">Every pillar of this site connects — content that's honest, layered, and built for an audience that wants depth alongside beauty.</p></div>
+    </div>
+    <div class="editorial-item">
+      <div class="editorial-item-num">II</div>
+      <div><p class="editorial-item-title">Commerce with Intention</p><p class="editorial-item-text">Fashion, gym wear, and superfoods aren't just products — they're extensions of the lifestyle being built in real time.</p></div>
+    </div>
+    <div class="editorial-item">
+      <div class="editorial-item-num">III</div>
+      <div><p class="editorial-item-title">Community Over Content</p><p class="editorial-item-text">From support groups to serialized fiction — a gathering place for people who feel everything a little too deeply.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <p class="about-label">02 — About</p>
+    <h2 class="about-heading">Many worlds.<br><em>One voice.</em></h2>
+  </div>
+  <div class="about-right">
+    <p class="about-text">"I exist in the space between stories — the ones told on screen, on the page, in the mirror, and in the silence after a hard season."</p>
+    <!-- TO DO: Replace the placeholder text below with Molly's actual bio -->
+    <p class="about-text-2">[Molly's full bio will go here — her story, her why, where she's going, and what drives everything she creates.]</p>
+    <div class="about-stats">
+      <div><div class="stat-num">5</div><div class="stat-label">Worlds</div></div>
+      <div><div class="stat-num">1</div><div class="stat-label">Novel Coming</div></div>
+      <div><div class="stat-num">∞</div><div class="stat-label">Stories to Tell</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">AJANDO</div>
+      <p class="footer-tagline">Many worlds. One voice.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-nav-col">
+        <h4>Worlds</h4>
+        <ul>
+          <li><a href="pages/film-video.html">Film & Video</a></li>
+          <li><a href="pages/health-fitness.html">Health & Fitness</a></li>
+          <li><a href="pages/books-stories.html">Books & Stories</a></li>
+          <li><a href="pages/fashion-beauty.html">Fashion & Beauty</a></li>
+          <li><a href="pages/mental-health.html">Mental Health</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Molly</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="pages/mental-health.html">Healing Hearts</a></li>
+          <li><a href="pages/books-stories.html">The Novel</a></li>
+          <li><a href="#">Connect</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="pages/fashion-beauty.html">Fashion</a></li>
+          <li><a href="pages/health-fitness.html">Gym Wear</a></li>
+          <li><a href="pages/health-fitness.html">Superfoods</a></li>
+          <li><a href="#">Coming Soon</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Ajando.com — All Rights Reserved</span>
+    <div class="social-links">
+      <a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a><a href="#">Substack</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

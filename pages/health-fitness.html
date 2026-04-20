@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health & Fitness — AJANDO</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0a0807;--black-soft:#141010;--black-mid:#1e1818;
+  --rose:#c9a0a0;--rose-light:#e8cece;--rose-deep:#a07070;
+  --choco:#6b3f2a;--choco-mid:#8a5a3f;--choco-light:#b08060;
+  --cream:#f5ede8;--text-dim:#9a8880;
+  --green-dim:#4a5a3a;--green-mid:#6a7f52;--green-light:#a0b880;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Montserrat',sans-serif;overflow-x:hidden;cursor:crosshair;}
+a{text-decoration:none;color:inherit;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(10,8,7,0.97);border-bottom:1px solid rgba(201,160,160,0.08);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;letter-spacing:0.15em;color:var(--rose-light);}
+.nav-back{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:0.5rem;transition:color 0.3s;}
+.nav-back:hover{color:var(--rose-light);}
+.nav-back::before{content:'←';font-size:0.9rem;}
+.nav-section{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--green-mid);}
+
+/* HERO */
+.hero{min-height:92vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;opacity:0;animation:fadeIn 1s ease forwards 0.1s;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:7rem 3rem 5rem;position:relative;z-index:2;}
+.hero-eyebrow{font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--green-mid);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem;opacity:0;animation:up 0.8s ease forwards 0.4s;}
+.hero-eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--green-mid);}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,6vw,5.5rem);font-weight:900;line-height:0.9;color:var(--cream);opacity:0;animation:up 0.9s ease forwards 0.55s;}
+.hero-title em{color:var(--rose);font-style:italic;display:block;}
+.hero-divider{width:4rem;height:2px;background:var(--green-mid);margin:2rem 0;opacity:0;animation:expandLine 0.7s ease forwards 0.9s;transform-origin:left;}
+@keyframes expandLine{from{width:0;opacity:0;}to{width:4rem;opacity:1;}}
+.hero-desc{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(245,237,232,0.7);line-height:1.8;max-width:380px;opacity:0;animation:up 0.8s ease forwards 1s;}
+.hero-pillars{display:flex;gap:0;margin-top:3rem;opacity:0;animation:up 0.8s ease forwards 1.1s;border:1px solid rgba(160,184,128,0.15);}
+.hero-pillar{padding:1rem 1.5rem;border-right:1px solid rgba(160,184,128,0.15);flex:1;text-align:center;}
+.hero-pillar:last-child{border-right:none;}
+.pillar-icon{font-size:1.1rem;margin-bottom:0.4rem;display:block;}
+.pillar-label{font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
+
+.hero-right{position:relative;overflow:hidden;}
+.hero-mosaic{position:absolute;inset:0;display:grid;grid-template-rows:1fr 1fr;gap:2px;}
+.mosaic-row{display:grid;gap:2px;}
+.mosaic-row:first-child{grid-template-columns:2fr 1fr;}
+.mosaic-row:last-child{grid-template-columns:1fr 2fr;}
+.mosaic-cell{position:relative;overflow:hidden;transition:transform 0.5s ease;}
+.mosaic-cell:hover{transform:scale(1.03);z-index:2;}
+.mosaic-inner{position:absolute;inset:0;display:flex;align-items:flex-end;padding:1rem;}
+.mosaic-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.mosaic-bg-text{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;font-style:italic;color:rgba(160,184,128,0.07);line-height:1;}
+.mosaic-label{font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green-light);background:rgba(10,8,7,0.7);padding:0.25rem 0.6rem;position:relative;z-index:1;}
+.hero-right-grad{position:absolute;inset:0;background:linear-gradient(to right,var(--black) 0%,transparent 25%);pointer-events:none;z-index:1;opacity:0;animation:fadeIn 1.2s ease forwards 0.7s;}
+
+/* STATS BAR */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(160,184,128,0.1);border-bottom:1px solid rgba(160,184,128,0.1);}
+.stat-cell{padding:2rem;border-right:1px solid rgba(160,184,128,0.1);text-align:center;}
+.stat-cell:last-child{border-right:none;}
+.stat-big{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;line-height:1;color:var(--rose-light);}
+.stat-small{font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-top:0.4rem;}
+
+/* FILTER BAR */
+.filter-bar{padding:2.5rem 3rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;border-bottom:1px solid rgba(160,184,128,0.08);}
+.filter-label{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-dim);margin-right:0.5rem;}
+.filter-btn{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.5rem 1.2rem;border:1px solid rgba(160,184,128,0.2);color:var(--text-dim);background:transparent;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all 0.3s;position:relative;overflow:hidden;}
+.filter-btn::before{content:'';position:absolute;inset:0;background:var(--green-dim);transform:scaleX(0);transform-origin:left;transition:transform 0.3s ease;z-index:0;}
+.filter-btn span{position:relative;z-index:1;}
+.filter-btn:hover::before,.filter-btn.active::before{transform:scaleX(1);}
+.filter-btn:hover,.filter-btn.active{color:var(--cream);border-color:var(--green-dim);}
+.results-count{margin-left:auto;font-size:0.6rem;letter-spacing:0.2em;color:var(--text-dim);}
+.count-num{color:var(--rose-light);font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;}
+
+/* SECTION LABEL */
+.section-label{padding:3rem 3rem 1.5rem;display:flex;align-items:center;gap:1.5rem;}
+.section-label-text{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--green-mid);}
+.section-label-line{flex:1;height:1px;background:rgba(160,184,128,0.1);}
+.section-label-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--cream);}
+
+/* CONTENT GRID */
+.content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(160,184,128,0.05);margin:0 3rem 4rem;}
+
+/* CARD */
+.card{background:var(--black);position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4;}
+.card-bg{position:absolute;inset:0;transition:transform 0.6s ease;}
+.card-bg-fill{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+.card-bg-letter{font-family:'Playfair Display',serif;font-size:7rem;font-weight:900;font-style:italic;line-height:1;transition:transform 0.6s ease,opacity 0.6s ease;}
+.card:hover .card-bg{transform:scale(1.07);}
+.card:hover .card-bg-letter{transform:scale(1.1);opacity:0.7;}
+.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,8,7,0.95) 0%,rgba(10,8,7,0.4) 55%,transparent 100%);transition:opacity 0.4s;}
+.card:hover .card-overlay{opacity:0.88;}
+.card-content{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;z-index:2;}
+.card-cat{font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--green-light);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;}
+.card-dot{width:4px;height:4px;border-radius:50%;background:var(--green-light);display:inline-block;}
+.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--cream);line-height:1.25;margin-bottom:0.4rem;}
+.card-sub{font-size:0.62rem;color:var(--text-dim);line-height:1.6;opacity:0;transform:translateY(8px);transition:all 0.4s ease;max-height:0;overflow:hidden;}
+.card:hover .card-sub{opacity:1;transform:translateY(0);max-height:5rem;}
+.card-tags{display:flex;gap:0.3rem;flex-wrap:wrap;margin-top:0.8rem;opacity:0;transform:translateY(8px);transition:all 0.4s ease 0.08s;}
+.card:hover .card-tags{opacity:1;transform:translateY(0);}
+.card-tag{font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(160,184,128,0.2);color:var(--text-dim);padding:0.2rem 0.5rem;}
+.card-arrow{position:absolute;top:1.2rem;right:1.2rem;width:2rem;height:2rem;border:1px solid rgba(160,184,128,0.2);display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:var(--green-light);opacity:0;transform:translate(4px,-4px);transition:all 0.4s ease;z-index:3;}
+.card:hover .card-arrow{opacity:1;transform:translate(0,0);}
+.card.featured{grid-column:span 2;aspect-ratio:auto;min-height:340px;}
+.card.featured .card-title{font-size:1.5rem;}
+.card.hidden{display:none;}
+
+/* SHOP TEASER */
+.shop-teaser{margin:0 3rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(160,184,128,0.06);}
+.shop-card{padding:3rem;background:var(--black);position:relative;overflow:hidden;cursor:pointer;transition:background 0.4s;}
+.shop-card:hover{background:rgba(107,63,42,0.12);}
+.shop-card:hover .shop-arrow{opacity:1;transform:translate(0,0);}
+.shop-badge{display:inline-block;font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;background:rgba(160,184,128,0.1);color:var(--green-light);padding:0.3rem 0.8rem;margin-bottom:1.5rem;border:1px solid rgba(160,184,128,0.2);}
+.shop-badge.soon{background:rgba(201,160,160,0.08);color:var(--rose);border-color:rgba(201,160,160,0.15);}
+.shop-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--cream);line-height:1.1;margin-bottom:1rem;}
+.shop-desc{font-size:0.7rem;color:var(--text-dim);line-height:1.9;font-weight:300;max-width:300px;}
+.shop-items{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1.5rem;}
+.shop-item{font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;border:1px solid rgba(201,160,160,0.15);color:var(--text-dim);padding:0.3rem 0.7rem;transition:all 0.3s;}
+.shop-item:hover{border-color:var(--rose-deep);color:var(--rose-light);}
+.shop-arrow{position:absolute;bottom:2.5rem;right:2.5rem;font-size:1.2rem;color:var(--rose);opacity:0;transform:translate(-4px,4px);transition:all 0.3s;}
+.shop-bg-num{position:absolute;top:1rem;right:1.5rem;font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;color:rgba(201,160,160,0.05);line-height:1;pointer-events:none;}
+
+/* JOURNEY STRIP */
+.journey{margin:0 3rem 5rem;border:1px solid rgba(160,184,128,0.1);}
+.journey-header{padding:2.5rem 3rem;border-bottom:1px solid rgba(160,184,128,0.1);display:flex;align-items:center;justify-content:space-between;}
+.journey-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--cream);}
+.journey-sub{font-size:0.62rem;color:var(--text-dim);font-weight:300;}
+.journey-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+.journey-step{padding:2rem;border-right:1px solid rgba(160,184,128,0.1);position:relative;transition:background 0.3s;}
+.journey-step:last-child{border-right:none;}
+.journey-step:hover{background:rgba(74,90,58,0.15);}
+.journey-step-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:rgba(160,184,128,0.08);line-height:1;margin-bottom:0.8rem;}
+.journey-step-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--cream);margin-bottom:0.5rem;}
+.journey-step-text{font-size:0.65rem;color:var(--text-dim);line-height:1.8;font-weight:300;}
+.journey-dot{width:6px;height:6px;border-radius:50%;background:var(--green-mid);margin-bottom:1rem;}
+
+/* MARQUEE */
+.marquee{background:var(--black-soft);border-top:1px solid rgba(160,184,128,0.07);border-bottom:1px solid rgba(160,184,128,0.07);padding:0.7rem 0;overflow:hidden;white-space:nowrap;margin-bottom:4rem;}
+.marquee-inner{display:inline-block;animation:marquee 20s linear infinite;font-size:0.58rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-dim);}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.sep{color:var(--green-mid);margin:0 1rem;}
+
+/* EDUCATION SECTION */
+.edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(160,184,128,0.05);margin:0 3rem 5rem;}
+.edu-card{background:var(--black);padding:2.5rem;position:relative;overflow:hidden;transition:background 0.4s;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.4s;}
+.edu-card:hover{background:rgba(74,90,58,0.12);border-bottom-color:var(--green-mid);}
+.edu-card:hover .edu-arrow{opacity:1;transform:translate(0,0);}
+.edu-num{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:rgba(160,184,128,0.06);position:absolute;top:0.5rem;right:1rem;line-height:1;}
+.edu-icon{font-size:1.4rem;margin-bottom:1.2rem;display:block;}
+.edu-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--cream);margin-bottom:0.5rem;}
+.edu-cat{font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green-mid);margin-bottom:1rem;}
+.edu-text{font-size:0.68rem;color:var(--text-dim);line-height:1.9;font-weight:300;}
+.edu-arrow{position:absolute;bottom:1.5rem;right:1.5rem;font-size:1rem;color:var(--green-light);opacity:0;transform:translate(-4px,4px);transition:all 0.3s;}
+
+/* PAGE FOOTER NAV */
+.page-footer{padding:3rem;border-top:1px solid rgba(201,160,160,0.1);display:flex;align-items:center;justify-content:space-between;}
+.pf-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--rose-light);letter-spacing:0.1em;}
+.pf-nav{display:flex;gap:2rem;}
+.pf-nav a{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);transition:color 0.3s;}
+.pf-nav a:hover{color:var(--cream);}
+.pf-next{display:flex;align-items:center;gap:0.8rem;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);cursor:pointer;transition:color 0.3s;}
+.pf-next:hover{color:var(--cream);}
+.pf-next-arrow{width:2rem;height:2rem;border:1px solid rgba(201,160,160,0.2);display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.pf-next:hover .pf-next-arrow{border-color:var(--rose-deep);color:var(--rose);}
+
+@keyframes up{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+@media(max-width:768px){
+  .nav{padding:1rem 1.5rem;}
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .hero-left{padding:4rem 1.5rem 3rem;}
+  .stats-bar{grid-template-columns:1fr 1fr;}
+  .filter-bar{padding:1.5rem;}
+  .content-grid,.edu-grid{grid-template-columns:1fr 1fr;margin:0 1.5rem 3rem;}
+  .card.featured{grid-column:span 2;}
+  .section-label{padding:2rem 1.5rem 1rem;}
+  .shop-teaser{grid-template-columns:1fr;margin:0 1.5rem 3rem;}
+  .journey{margin:0 1.5rem 3rem;}
+  .journey-grid{grid-template-columns:1fr 1fr;}
+  .page-footer{flex-direction:column;gap:1.5rem;padding:2rem 1.5rem;text-align:center;}
+  .pf-nav{flex-wrap:wrap;justify-content:center;gap:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a class="nav-back" href="#">Ajando.com</a>
+  <span class="nav-section">Health & Fitness</span>
+  <div class="nav-logo">AJANDO</div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">The Body & Ritual World</p>
+    <h1 class="hero-title">Strength.<br>Nourish.<br><em>Thrive.</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">A journey documented, not performed. From the gym floor to the kitchen counter — this is what it actually looks like to build a body and life you love.</p>
+    <div class="hero-pillars">
+      <div class="hero-pillar">
+        <span class="pillar-icon">🏋🏾‍♀️</span>
+        <div class="pillar-label">Gym</div>
+      </div>
+      <div class="hero-pillar">
+        <span class="pillar-icon">🌱</span>
+        <div class="pillar-label">Nutrition</div>
+      </div>
+      <div class="hero-pillar">
+        <span class="pillar-icon">🛍</span>
+        <div class="pillar-label">Shop</div>
+      </div>
+      <div class="hero-pillar">
+        <span class="pillar-icon">📖</span>
+        <div class="pillar-label">Education</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-mosaic">
+      <div class="mosaic-row">
+        <div class="mosaic-cell" style="background:linear-gradient(160deg,#1a1208,#2e1e10);">
+          <div class="mosaic-bg"><span class="mosaic-bg-text">GYM</span></div>
+          <div class="mosaic-inner"><span class="mosaic-label">Gym Journey</span></div>
+        </div>
+        <div class="mosaic-cell" style="background:linear-gradient(160deg,#0e1408,#1a2010);">
+          <div class="mosaic-bg"><span class="mosaic-bg-text">NUT</span></div>
+          <div class="mosaic-inner"><span class="mosaic-label">Nutrition</span></div>
+        </div>
+      </div>
+      <div class="mosaic-row">
+        <div class="mosaic-cell" style="background:linear-gradient(160deg,#100e08,#1e1810);">
+          <div class="mosaic-bg"><span class="mosaic-bg-text">WEAR</span></div>
+          <div class="mosaic-inner"><span class="mosaic-label">Gym Wear</span></div>
+        </div>
+        <div class="mosaic-cell" style="background:linear-gradient(160deg,#0a1008,#16200e);">
+          <div class="mosaic-bg"><span class="mosaic-bg-text">EAT</span></div>
+          <div class="mosaic-inner"><span class="mosaic-label">Superfoods</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right-grad"></div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-cell">
+    <div class="stat-big">4</div>
+    <div class="stat-small">Pillars</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-big">∞</div>
+    <div class="stat-small">Gym Moments</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-big">3</div>
+    <div class="stat-small">Shop Categories</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-big">1</div>
+    <div class="stat-small">Real Journey</div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="filter-btn active" data-filter="all"><span>All</span></button>
+  <button class="filter-btn" data-filter="gym"><span>Gym</span></button>
+  <button class="filter-btn" data-filter="nutrition"><span>Nutrition</span></button>
+  <button class="filter-btn" data-filter="education"><span>Education</span></button>
+  <button class="filter-btn" data-filter="aesthetics"><span>Aesthetics</span></button>
+  <span class="results-count"><span class="count-num" id="count">6</span> pieces</span>
+</div>
+
+<!-- GYM SECTION -->
+<div class="section-label">
+  <span class="section-label-text">Chapter I</span>
+  <div class="section-label-line"></div>
+  <span class="section-label-title">The Gym Journey</span>
+</div>
+
+<div class="content-grid" id="grid">
+
+  <div class="card featured" data-cat="gym">
+    <div class="card-bg"><div class="card-bg-fill" style="background:linear-gradient(145deg,#1a1208,#2e1e0e,#0e0c08);"><span class="card-bg-letter" style="color:rgba(160,184,128,0.07);">LIFT</span></div></div>
+    <div class="card-overlay"></div>
+    <div class="card-arrow">→</div>
+    <div class="card-content">
+      <div class="card-cat"><span class="card-dot"></span>Gym Journey</div>
+      <div class="card-title">Six Months In — What the Mirror Doesn't Show You</div>
+      <div class="card-sub">The progress photos, yes — but also the 5am mornings, the plateaus, the days you go anyway, and what actually changes when you commit to your body.</div>
+      <div class="card-tags"><span class="card-tag">Journey</span><span class="card-tag">Progress</span><span class="card-tag">Real Talk</span></div>
+    </div>
+  </div>
+
+  <div class="card" data-cat="aesthetics">
+    <div class="card-bg"><div class="card-bg-fill" style="background:linear-gradient(160deg,#0e1208,#1a200e,#0a0e08);"><span class="card-bg-letter" style="color:rgba(160,184,128,0.07);">FIT</span></div></div>
+    <div class="card-overlay"></div>
+    <div class="card-arrow">→</div>
+    <div class="card-content">
+      <div class="card-cat"><span class="card-dot"></span>Gym Aesthetics</div>
+      <div class="card-title">The Gym Is Also a Mood Board</div>
+      <div class="card-sub">Curated gym photos — the lighting, the sets, the stillness between reps. Because a workout can be beautiful too.</div>
+      <div class="card-tags"><span class="card-tag">Aesthetics</span><span class="card-tag">Photos</span></div>
+    </div>
+  </div>
+
+  <div class="card" data-cat="gym">
+    <div class="card-bg"><div class="card-bg-fill" style="background:linear-gradient(160deg,#1a1208,#261808,#100e08);"><span class="card-bg-letter" style="color:rgba(176,128,96,0.08);">REST</span></div></div>
+    <div class="card-overlay"></div>
+    <div class="card-arrow">→</div>
+    <div class="card-content">
+      <div class="card-cat"><span class="card-dot"></span>Gym Journey</div>
+      <div class="card-title">Rest Is Not Laziness. Rest Is the Work.</div>
+      <div class="card-sub">On recovery, rest days, and unlearning the idea that you have to earn your body's care every single day.</div>
+      <div class="card-tags"><span class="card-tag">Recovery</span><span class="card-tag">Mental</span></div>
+    </div>
+  </div>
+
+  <div class="card" data-cat="nutrition">
+    <div class="card-bg"><div class="card-bg-fill" style="background:linear-gradient(160deg,#0e1408,#182008,#0a100a);"><span class="card-bg-letter" style="color:rgba(160,184,128,0.08);">SEED</span></div></div>
+    <div class="card-overlay"></div>
+    <div class="card-arrow">→</div>
+    <div class="card-content">
+      <div class="card-cat"><span class="card-dot"></span>Nutrition</div>
+      <div class="card-title">The Tiny Seeds That Changed Everything</div>
+      <div class="card-sub">Chia, flax, hemp — what they actually do, how she uses them daily, and why they'll become a staple in your kitchen too.</div>
+      <div class="card-tags"><span class="card-tag">Seeds</span><span class="card-tag">Superfoods</span><span class="card-tag">Education</span></div>
+    </div>
+  </div>
+
+  <div class="card featured" data-cat="education">
+    <div class="card-bg"><div class="card-bg-fill" style="background:linear-gradient(145deg,#0e100a,#1a1e0e,#0a0e08);"><span class="card-bg-letter" style="color:rgba(160,184,128,0.06);">KNOW</span></div></div>
+    <div class="card-overlay"></div>
+    <div class="card-arrow">→</div>
+    <div class="card-content">
+      <div class="card-cat"><span class="card-dot"></span>Education</div>
+      <div class="card-title">What Nobody Tells You About Building a Routine That Actually Sticks</div>
+      <div class="card-sub">Not a 7-step plan. A real look at habit formation, nutrition timing, and why most fitness content sets you up to fail.</div>
+      <div class="card-tags"><span class="card-tag">Routines</span><span class="card-tag">Habits</span><span class="card-tag">Real Talk</span><span class="card-tag">Nutrition</span></div>
+    </div>
+  </div>
+
+  <div class="card" data-cat="nutrition">
+    <div class="card-bg"><div class="card-bg-fill" style="background:linear-gradient(160deg,#1a1208,#241c10,#0e0c08);"><span class="card-bg-letter" style="color:rgba(176,128,96,0.08);">NUT</span></div></div>
+    <div class="card-overlay"></div>
+    <div class="card-arrow">→</div>
+    <div class="card-content">
+      <div class="card-cat"><span class="card-dot"></span>Nutrition</div>
+      <div class="card-title">Nuts, Cookies & the Art of Eating Well Without Suffering</div>
+      <div class="card-sub">Healthy food that doesn't taste like a punishment. Recipes and snack ideas built around real ingredients and real enjoyment.</div>
+      <div class="card-tags"><span class="card-tag">Nuts</span><span class="card-tag">Cookies</span><span class="card-tag">Recipes</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- JOURNEY TIMELINE -->
+<div class="journey">
+  <div class="journey-header">
+    <div>
+      <div class="journey-title">The Journey, Documented</div>
+      <div class="journey-sub">Not a transformation story. An ongoing one.</div>
+    </div>
+  </div>
+  <div class="journey-grid">
+    <div class="journey-step">
+      <div class="journey-dot"></div>
+      <div class="journey-step-num">01</div>
+      <div class="journey-step-title">The Beginning</div>
+      <div class="journey-step-text">Showing up for the first time. What the gym felt like before it felt like home — the intimidation, the learning, the first small wins.</div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-dot"></div>
+      <div class="journey-step-num">02</div>
+      <div class="journey-step-title">Finding the Rhythm</div>
+      <div class="journey-step-text">When workouts stopped being a chore and started being a ritual. How nutrition became intuitive, not obsessive.</div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-dot"></div>
+      <div class="journey-step-num">03</div>
+      <div class="journey-step-title">The Plateau</div>
+      <div class="journey-step-text">Every honest journey has one. What it felt like, what she changed, and why the plateau was actually the most important part.</div>
+    </div>
+    <div class="journey-step">
+      <div class="journey-dot"></div>
+      <div class="journey-step-num">04</div>
+      <div class="journey-step-title">Now & Ongoing</div>
+      <div class="journey-step-text">Where she is today — the current routines, the current goals, the current relationship with her body. Still in progress. Always.</div>
+    </div>
+  </div>
+</div>
+
+<div class="marquee">
+  <div class="marquee-inner">
+    Gym Journey <span class="sep">·</span> Superfoods <span class="sep">·</span> Gym Wear <span class="sep">·</span> Nuts & Seeds <span class="sep">·</span> Cookies <span class="sep">·</span> Routines <span class="sep">·</span> Recovery <span class="sep">·</span> Strength <span class="sep">·</span> Nourishment <span class="sep">·</span> Aesthetics <span class="sep">·</span> Education <span class="sep">·</span> Coming Soon <span class="sep">·</span> Gym Journey <span class="sep">·</span> Superfoods <span class="sep">·</span> Gym Wear <span class="sep">·</span> Nuts & Seeds <span class="sep">·</span> Cookies <span class="sep">·</span> Routines <span class="sep">·</span> Recovery <span class="sep">·</span> Strength <span class="sep">·</span> Nourishment <span class="sep">·</span> Aesthetics <span class="sep">·</span> Education <span class="sep">·</span>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div class="section-label">
+  <span class="section-label-text">Chapter II</span>
+  <div class="section-label-line"></div>
+  <span class="section-label-title">Educational Content</span>
+</div>
+
+<div class="edu-grid">
+  <div class="edu-card">
+    <div class="edu-num">01</div>
+    <span class="edu-icon">🥜</span>
+    <div class="edu-cat">Superfoods</div>
+    <div class="edu-title">The Benefits of Nuts — A Deep Dive</div>
+    <div class="edu-text">Almonds, walnuts, cashews, macadamias — what each one does for your body, brain, and energy levels. No fluff, just the science made readable.</div>
+    <div class="edu-arrow">→</div>
+  </div>
+  <div class="edu-card">
+    <div class="edu-num">02</div>
+    <span class="edu-icon">🌿</span>
+    <div class="edu-cat">Nutrition</div>
+    <div class="edu-title">Eating for Energy, Not Just Aesthetics</div>
+    <div class="edu-text">Why the way you fuel your body matters more than what it looks like — and how to build a plate that powers everything you're building.</div>
+    <div class="edu-arrow">→</div>
+  </div>
+  <div class="edu-card">
+    <div class="edu-num">03</div>
+    <span class="edu-icon">🏋🏾‍♀️</span>
+    <div class="edu-cat">Workouts</div>
+    <div class="edu-title">Beginner Routines That Actually Work</div>
+    <div class="edu-text">No equipment required for some, gym-based for others — structured guides for people starting from zero with no ego and no shame.</div>
+    <div class="edu-arrow">→</div>
+  </div>
+</div>
+
+<!-- SHOP TEASER -->
+<div class="section-label">
+  <span class="section-label-text">Chapter III</span>
+  <div class="section-label-line"></div>
+  <span class="section-label-title">The Shop — Coming Soon</span>
+</div>
+
+<div class="shop-teaser">
+  <div class="shop-card">
+    <div class="shop-bg-num">01</div>
+    <span class="shop-badge soon">Coming Soon</span>
+    <div class="shop-title">Gym Wear by Ajando</div>
+    <div class="shop-desc">Designed for the woman who lifts, stretches, sweats, and still wants to look like herself doing it. Pieces that move with you and hold their shape.</div>
+    <div class="shop-items">
+      <span class="shop-item">Sets</span>
+      <span class="shop-item">Leggings</span>
+      <span class="shop-item">Sports Bras</span>
+      <span class="shop-item">Accessories</span>
+    </div>
+    <div class="shop-arrow">→</div>
+  </div>
+  <div class="shop-card">
+    <div class="shop-bg-num">02</div>
+    <span class="shop-badge soon">Coming Soon</span>
+    <div class="shop-title">Superfoods & Snacks</div>
+    <div class="shop-desc">Nuts, seeds, and cookies — clean ingredients, real flavour, no compromise. Everything she actually eats, packaged and ready for your kitchen.</div>
+    <div class="shop-items">
+      <span class="shop-item">Mixed Nuts</span>
+      <span class="shop-item">Seed Blends</span>
+      <span class="shop-item">Cookies</span>
+      <span class="shop-item">Bundles</span>
+    </div>
+    <div class="shop-arrow">→</div>
+  </div>
+</div>
+
+<!-- PAGE FOOTER NAV -->
+<div class="page-footer">
+  <div class="pf-logo">AJANDO</div>
+  <nav class="pf-nav">
+    <a href="#">Film & Video</a>
+    <a href="#">Books & Stories</a>
+    <a href="#">Fashion</a>
+    <a href="#">Mental Health</a>
+    <a href="#">About</a>
+  </nav>
+  <div class="pf-next">
+    Next: Books & Stories
+    <div class="pf-next-arrow">→</div>
+  </div>
+</div>
+
+<script>
+const btns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.card[data-cat]');
+const countEl = document.getElementById('count');
+
+btns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    let v = 0;
+    cards.forEach(c => {
+      const show = f === 'all' || c.dataset.cat === f;
+      c.classList.toggle('hidden', !show);
+      if(show) v++;
+    });
+    countEl.textContent = v;
+  });
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {threshold:0.08});
+
+document.querySelectorAll('.card, .edu-card, .journey-step, .shop-card, .section-label, .stat-cell').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(26px)';
+  el.style.transition = `opacity 0.7s ease ${i * 0.05}s, transform 0.7s ease ${i * 0.05}s`;
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

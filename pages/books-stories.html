@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Books & Stories — AJANDO</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0a0807;--black-soft:#141010;--black-mid:#1e1818;
+  --rose:#c9a0a0;--rose-light:#e8cece;--rose-deep:#a07070;
+  --choco:#6b3f2a;--choco-mid:#8a5a3f;--choco-light:#b08060;
+  --cream:#f5ede8;--text-dim:#9a8880;
+  --ink:#7a9a8a;--ink-mid:#5a7a6a;--ink-light:#a0c0b0;--ink-dim:#3a5a4a;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Montserrat',sans-serif;overflow-x:hidden;cursor:crosshair;}
+a{text-decoration:none;color:inherit;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(10,8,7,0.97);border-bottom:1px solid rgba(122,154,138,0.1);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;letter-spacing:0.15em;color:var(--rose-light);}
+.nav-back{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:0.5rem;transition:color 0.3s;}
+.nav-back:hover{color:var(--rose-light);}
+.nav-back::before{content:'←';font-size:0.9rem;}
+.nav-section{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink);}
+
+/* HERO — literary, full bleed */
+.hero{min-height:95vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;opacity:0;animation:fadeIn 1s ease forwards 0.1s;}
+.hero-bg{position:absolute;inset:0;background:var(--black);}
+.hero-bg-text-layer{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;overflow:hidden;pointer-events:none;}
+.hero-bg-line{font-family:'Cormorant Garamond',serif;font-size:clamp(5rem,10vw,9rem);font-weight:300;font-style:italic;color:rgba(122,154,138,0.04);line-height:0.95;white-space:nowrap;letter-spacing:-0.02em;}
+.hero-content{position:relative;z-index:3;display:grid;grid-template-columns:1fr 1fr;width:100%;padding:0 3rem 5rem;gap:4rem;align-items:flex-end;}
+.hero-left{}
+.hero-eyebrow{font-size:0.58rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--ink);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem;opacity:0;animation:up 0.8s ease forwards 0.4s;}
+.hero-eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--ink);}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(4rem,8vw,7rem);font-weight:900;line-height:0.88;color:var(--cream);opacity:0;animation:up 0.9s ease forwards 0.5s;}
+.hero-title em{color:var(--rose);font-style:italic;display:block;}
+.hero-rule{width:3rem;height:1px;background:var(--ink-mid);margin:2rem 0;opacity:0;animation:expandLine 0.8s ease forwards 0.9s;transform-origin:left;}
+@keyframes expandLine{from{width:0;opacity:0;}to{width:3rem;opacity:1;}}
+.hero-desc{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:rgba(245,237,232,0.68);line-height:1.9;max-width:400px;opacity:0;animation:up 0.8s ease forwards 1s;}
+.hero-right{display:flex;flex-direction:column;gap:2rem;opacity:0;animation:up 0.8s ease forwards 1.1s;}
+.hero-categories{display:flex;flex-direction:column;gap:0;border:1px solid rgba(122,154,138,0.12);}
+.hero-cat-item{padding:1rem 1.5rem;border-bottom:1px solid rgba(122,154,138,0.1);display:flex;align-items:center;justify-content:space-between;transition:background 0.3s;cursor:pointer;}
+.hero-cat-item:last-child{border-bottom:none;}
+.hero-cat-item:hover{background:rgba(90,122,106,0.1);}
+.hero-cat-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--cream);}
+.hero-cat-count{font-size:0.55rem;letter-spacing:0.2em;color:var(--text-dim);}
+.hero-cat-arrow{font-size:0.8rem;color:var(--ink);opacity:0;transition:opacity 0.3s;}
+.hero-cat-item:hover .hero-cat-arrow{opacity:1;}
+.hero-scroll{position:absolute;bottom:2rem;left:3rem;display:flex;align-items:center;gap:1rem;font-size:0.52rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-dim);opacity:0;animation:fadeIn 1s ease forwards 1.5s;}
+.hero-scroll-line{width:2.5rem;height:1px;background:linear-gradient(to right,var(--ink-mid),transparent);}
+
+/* READING PROGRESS STRIP */
+.progress-strip{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid rgba(122,154,138,0.08);}
+.prog-cell{padding:1.8rem;border-right:1px solid rgba(122,154,138,0.08);text-align:center;transition:background 0.3s;cursor:pointer;}
+.prog-cell:last-child{border-right:none;}
+.prog-cell:hover{background:rgba(90,122,106,0.08);}
+.prog-icon{font-size:1.2rem;margin-bottom:0.5rem;display:block;}
+.prog-label{font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-dim);}
+.prog-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--ink-light);line-height:1;margin-bottom:0.3rem;}
+
+/* FILTER BAR */
+.filter-bar{padding:2rem 3rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;border-bottom:1px solid rgba(122,154,138,0.07);}
+.filter-label{font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-dim);margin-right:0.5rem;}
+.filter-btn{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.45rem 1.1rem;border:1px solid rgba(122,154,138,0.18);color:var(--text-dim);background:transparent;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all 0.3s;position:relative;overflow:hidden;}
+.filter-btn::before{content:'';position:absolute;inset:0;background:var(--ink-dim);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;z-index:0;}
+.filter-btn span{position:relative;z-index:1;}
+.filter-btn:hover::before,.filter-btn.active::before{transform:scaleX(1);}
+.filter-btn:hover,.filter-btn.active{color:var(--cream);border-color:var(--ink-dim);}
+.results-count{margin-left:auto;font-size:0.58rem;letter-spacing:0.2em;color:var(--text-dim);}
+.count-num{color:var(--ink-light);font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;}
+
+/* SECTION LABEL */
+.section-label{padding:3rem 3rem 1.5rem;display:flex;align-items:center;gap:1.5rem;}
+.sl-text{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ink-mid);}
+.sl-line{flex:1;height:1px;background:rgba(122,154,138,0.1);}
+.sl-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--cream);}
+
+/* POEMS SECTION — magazine layout */
+.poems-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(122,154,138,0.05);margin:0 3rem 2px;}
+.poem-card{background:var(--black);padding:2.5rem;position:relative;overflow:hidden;cursor:pointer;transition:background 0.4s;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;}
+.poem-card:hover{background:rgba(58,90,74,0.15);}
+.poem-card:hover .poem-lines{opacity:1;transform:translateY(0);}
+.poem-card:hover .poem-read{opacity:1;}
+.poem-card.featured{grid-column:span 2;min-height:380px;}
+.poem-bg-num{position:absolute;top:1rem;right:1.5rem;font-family:'Playfair Display',serif;font-size:6rem;font-weight:900;color:rgba(122,154,138,0.05);line-height:1;pointer-events:none;}
+.poem-bg-word{position:absolute;bottom:-1rem;left:-0.5rem;font-family:'Cormorant Garamond',serif;font-size:8rem;font-weight:300;font-style:italic;color:rgba(122,154,138,0.04);line-height:1;pointer-events:none;}
+.poem-cat{font-size:0.52rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--ink);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;}
+.poem-dot{width:3px;height:3px;border-radius:50%;background:var(--ink);display:inline-block;}
+.poem-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--cream);line-height:1.25;margin-bottom:1rem;}
+.poem-card.featured .poem-title{font-size:1.8rem;}
+.poem-lines{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:rgba(245,237,232,0.55);line-height:1.8;opacity:0;transform:translateY(8px);transition:all 0.4s;max-height:0;overflow:hidden;}
+.poem-card:hover .poem-lines{max-height:6rem;}
+.poem-read{font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ink);margin-top:1.2rem;display:flex;align-items:center;gap:0.5rem;opacity:0;transition:opacity 0.4s 0.1s;}
+.poem-read::after{content:'→';}
+.poem-tags{display:flex;gap:0.3rem;flex-wrap:wrap;margin-top:0.8rem;}
+.poem-tag{font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(122,154,138,0.18);color:var(--text-dim);padding:0.18rem 0.45rem;}
+
+/* ESSAYS SECTION */
+.essays-list{margin:0 3rem 5rem;}
+.essay-item{display:grid;grid-template-columns:auto 1fr auto;gap:2.5rem;align-items:start;padding:2.5rem 0;border-bottom:1px solid rgba(122,154,138,0.08);cursor:pointer;transition:background 0.3s;position:relative;}
+.essay-item:first-child{border-top:1px solid rgba(122,154,138,0.08);}
+.essay-item:hover{padding-left:1rem;padding-right:1rem;margin-left:-1rem;margin-right:-1rem;background:rgba(58,90,74,0.1);}
+.essay-item:hover .essay-arrow{opacity:1;transform:translate(0,0);}
+.essay-num{font-family:'Playfair Display',serif;font-size:0.8rem;font-weight:700;color:rgba(122,154,138,0.3);min-width:2.5rem;padding-top:0.2rem;}
+.essay-body{}
+.essay-topic{font-size:0.52rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink);margin-bottom:0.5rem;}
+.essay-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--cream);line-height:1.25;margin-bottom:0.5rem;}
+.essay-excerpt{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:rgba(245,237,232,0.55);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.4s,opacity 0.4s;opacity:0;}
+.essay-item:hover .essay-excerpt{max-height:4rem;opacity:1;}
+.essay-meta{display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem;padding-top:0.2rem;}
+.essay-tag{font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;border:1px solid rgba(122,154,138,0.2);color:var(--ink);padding:0.25rem 0.6rem;}
+.essay-length{font-size:0.52rem;color:var(--text-dim);}
+.essay-arrow{font-size:1rem;color:var(--ink);opacity:0;transform:translate(-4px,0);transition:all 0.3s;margin-top:0.5rem;}
+
+/* NOVEL SECTION */
+.novel-section{margin:0 3rem 5rem;display:grid;grid-template-columns:1fr 1fr;border:1px solid rgba(122,154,138,0.12);overflow:hidden;}
+.novel-left{padding:4rem;position:relative;overflow:hidden;}
+.novel-left::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--ink-mid),transparent);}
+.novel-bg-word{position:absolute;bottom:-2rem;right:-1rem;font-family:'Playfair Display',serif;font-size:10rem;font-weight:900;font-style:italic;color:rgba(122,154,138,0.04);pointer-events:none;line-height:1;}
+.novel-badge{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.52rem;letter-spacing:0.3em;text-transform:uppercase;background:rgba(122,154,138,0.1);color:var(--ink-light);padding:0.35rem 0.8rem;margin-bottom:2rem;border:1px solid rgba(122,154,138,0.2);}
+.novel-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--ink);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.novel-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:900;color:var(--cream);line-height:1.05;margin-bottom:1.5rem;}
+.novel-title em{color:var(--rose);font-style:italic;}
+.novel-desc{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(245,237,232,0.65);line-height:1.9;margin-bottom:2rem;}
+.novel-notify{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;border:1px solid var(--ink-mid);color:var(--ink-light);padding:0.8rem 1.8rem;display:inline-block;cursor:pointer;transition:all 0.3s;}
+.novel-notify:hover{background:var(--ink-dim);color:var(--cream);}
+.novel-right{background:var(--black-soft);display:flex;flex-direction:column;justify-content:center;padding:4rem;gap:2rem;border-left:1px solid rgba(122,154,138,0.08);}
+.novel-detail{border-left:2px solid rgba(122,154,138,0.15);padding-left:1.5rem;transition:border-color 0.3s;}
+.novel-detail:hover{border-left-color:var(--ink-mid);}
+.novel-detail-label{font-size:0.52rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink);margin-bottom:0.4rem;}
+.novel-detail-val{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--cream);}
+.novel-detail-sub{font-size:0.65rem;color:var(--text-dim);margin-top:0.25rem;font-weight:300;line-height:1.6;}
+
+/* SERIALIZED BOOK */
+.serial-section{margin:0 3rem 2px;}
+.serial-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2px;}
+.serial-cta{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:0.5rem;transition:color 0.3s;cursor:pointer;}
+.serial-cta:hover{color:var(--ink-light);}
+.serial-cta::after{content:'→';}
+.serial-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(122,154,138,0.04);}
+.serial-card{background:var(--black);padding:2rem;position:relative;overflow:hidden;cursor:pointer;transition:background 0.4s;}
+.serial-card:hover{background:rgba(58,90,74,0.15);}
+.serial-card:hover .serial-arrow{opacity:1;transform:translate(0,0);}
+.serial-ep{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:rgba(122,154,138,0.07);line-height:1;margin-bottom:0.8rem;}
+.serial-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--cream);line-height:1.25;margin-bottom:0.5rem;}
+.serial-desc{font-size:0.62rem;color:var(--text-dim);line-height:1.8;font-weight:300;}
+.serial-status{display:inline-block;font-size:0.48rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.2rem 0.55rem;margin-top:1rem;}
+.serial-status.published{background:rgba(122,154,138,0.1);color:var(--ink-light);border:1px solid rgba(122,154,138,0.2);}
+.serial-status.upcoming{background:rgba(201,160,160,0.08);color:var(--rose);border:1px solid rgba(201,160,160,0.15);}
+.serial-arrow{position:absolute;bottom:1.5rem;right:1.5rem;font-size:0.9rem;color:var(--ink);opacity:0;transform:translate(-4px,4px);transition:all 0.3s;}
+
+/* MARQUEE */
+.marquee{background:var(--black-soft);border-top:1px solid rgba(122,154,138,0.07);border-bottom:1px solid rgba(122,154,138,0.07);padding:0.7rem 0;overflow:hidden;white-space:nowrap;margin-bottom:4rem;}
+.marquee-inner{display:inline-block;animation:marquee 24s linear infinite;font-size:0.58rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--text-dim);}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.sep{color:var(--ink-mid);margin:0 1rem;}
+
+/* PAGE FOOTER */
+.page-footer{padding:3rem;border-top:1px solid rgba(201,160,160,0.1);display:flex;align-items:center;justify-content:space-between;}
+.pf-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--rose-light);letter-spacing:0.1em;}
+.pf-nav{display:flex;gap:2rem;}
+.pf-nav a{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);transition:color 0.3s;}
+.pf-nav a:hover{color:var(--cream);}
+.pf-next{display:flex;align-items:center;gap:0.8rem;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);cursor:pointer;transition:color 0.3s;}
+.pf-next:hover{color:var(--cream);}
+.pf-next-arrow{width:2rem;height:2rem;border:1px solid rgba(201,160,160,0.2);display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.pf-next:hover .pf-next-arrow{border-color:var(--rose-deep);color:var(--rose);}
+
+@keyframes up{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+@media(max-width:768px){
+  .nav{padding:1rem 1.5rem;}
+  .hero-content{grid-template-columns:1fr;padding:0 1.5rem 3rem;gap:2rem;}
+  .filter-bar,.section-label{padding:1.5rem;}
+  .poems-grid{grid-template-columns:1fr;margin:0 1.5rem 2px;}
+  .poem-card.featured{grid-column:span 1;}
+  .essays-list{margin:0 1.5rem 3rem;}
+  .essay-item{grid-template-columns:auto 1fr;gap:1rem;}
+  .essay-meta{display:none;}
+  .novel-section{grid-template-columns:1fr;margin:0 1.5rem 3rem;}
+  .novel-right{border-left:none;border-top:1px solid rgba(122,154,138,0.08);}
+  .serial-section{margin:0 1.5rem 2px;}
+  .serial-grid{grid-template-columns:1fr 1fr;}
+  .page-footer{flex-direction:column;gap:1.5rem;padding:2rem 1.5rem;text-align:center;}
+  .pf-nav{flex-wrap:wrap;justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <a class="nav-back" href="#">Ajando.com</a>
+  <span class="nav-section">Books & Stories</span>
+  <div class="nav-logo">AJANDO</div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-text-layer">
+    <div class="hero-bg-line" style="margin-left:-2rem;opacity:0;animation:fadeIn 2s ease forwards 0.5s;">In the beginning there was the word</div>
+    <div class="hero-bg-line" style="margin-left:8rem;opacity:0;animation:fadeIn 2s ease forwards 0.8s;">and the word was hers</div>
+    <div class="hero-bg-line" style="margin-left:-4rem;opacity:0;animation:fadeIn 2s ease forwards 1.1s;">she wrote what she could not say</div>
+    <div class="hero-bg-line" style="margin-left:5rem;opacity:0;animation:fadeIn 2s ease forwards 1.4s;">and it was enough</div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <p class="hero-eyebrow">The Written World</p>
+      <h1 class="hero-title">Words<br>That<br><em>Live.</em></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-desc">Poems that ache, essays that question, a novel that's coming, and a serialized story that unfolds chapter by chapter. This is where Molly thinks out loud — in ink.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-categories">
+        <div class="hero-cat-item">
+          <div>
+            <div class="hero-cat-name">Poems</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <span class="hero-cat-count">Collection I</span>
+            <span class="hero-cat-arrow">→</span>
+          </div>
+        </div>
+        <div class="hero-cat-item">
+          <div>
+            <div class="hero-cat-name">Serialized Book</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <span class="hero-cat-count">Ongoing</span>
+            <span class="hero-cat-arrow">→</span>
+          </div>
+        </div>
+        <div class="hero-cat-item">
+          <div>
+            <div class="hero-cat-name">The Novel</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <span class="hero-cat-count" style="color:var(--rose);">Coming Soon</span>
+            <span class="hero-cat-arrow">→</span>
+          </div>
+        </div>
+        <div class="hero-cat-item">
+          <div>
+            <div class="hero-cat-name">Journal Essays</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <span class="hero-cat-count">Ongoing</span>
+            <span class="hero-cat-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Read on
+  </div>
+</section>
+
+<!-- PROGRESS STRIP -->
+<div class="progress-strip">
+  <div class="prog-cell">
+    <div class="prog-num">∞</div>
+    <div class="prog-label">Poems Written</div>
+  </div>
+  <div class="prog-cell">
+    <div class="prog-num">4+</div>
+    <div class="prog-label">Essay Topics</div>
+  </div>
+  <div class="prog-cell">
+    <div class="prog-num">1</div>
+    <div class="prog-label">Novel in Progress</div>
+  </div>
+  <div class="prog-cell">
+    <div class="prog-num">∞</div>
+    <div class="prog-label">Chapters Planned</div>
+  </div>
+  <div class="prog-cell">
+    <div class="prog-num">1</div>
+    <div class="prog-label">Serialized Story</div>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="filter-btn active" data-filter="all"><span>All Writing</span></button>
+  <button class="filter-btn" data-filter="poems"><span>Poems</span></button>
+  <button class="filter-btn" data-filter="essays"><span>Essays</span></button>
+  <button class="filter-btn" data-filter="fiction"><span>Fiction</span></button>
+  <span class="results-count"><span class="count-num" id="count">9</span> pieces</span>
+</div>
+
+<!-- POEMS -->
+<div class="section-label">
+  <span class="sl-text">Part I</span>
+  <div class="sl-line"></div>
+  <span class="sl-title">Poems</span>
+</div>
+
+<div class="poems-grid" id="grid">
+
+  <div class="poem-card featured" data-filter="poems">
+    <div class="poem-bg-num">I</div>
+    <div class="poem-bg-word">poem</div>
+    <div class="poem-cat"><span class="poem-dot"></span>Poem</div>
+    <div class="poem-title">The Kind of Woman I'm Becoming</div>
+    <div class="poem-lines">"She is not soft because she was broken —<br>she is soft because she chose to stay open<br>after everything that tried to close her."</div>
+    <div class="poem-tags"><span class="poem-tag">Identity</span><span class="poem-tag">Womanhood</span><span class="poem-tag">Faith</span></div>
+    <div class="poem-read">Read full poem</div>
+  </div>
+
+  <div class="poem-card" data-filter="poems">
+    <div class="poem-bg-num">II</div>
+    <div class="poem-cat"><span class="poem-dot"></span>Poem</div>
+    <div class="poem-title">Nairobi at 2am</div>
+    <div class="poem-lines">"The city doesn't sleep —<br>it just changes its voice."</div>
+    <div class="poem-tags"><span class="poem-tag">Nairobi</span><span class="poem-tag">Place</span></div>
+    <div class="poem-read">Read full poem</div>
+  </div>
+
+  <div class="poem-card" data-filter="poems">
+    <div class="poem-bg-num">III</div>
+    <div class="poem-cat"><span class="poem-dot"></span>Poem</div>
+    <div class="poem-title">On Healing Without an Audience</div>
+    <div class="poem-lines">"Not every wound deserves a witness.<br>Some things heal best in the dark."</div>
+    <div class="poem-tags"><span class="poem-tag">Mental Health</span><span class="poem-tag">Healing</span></div>
+    <div class="poem-read">Read full poem</div>
+  </div>
+
+  <div class="poem-card" data-filter="poems">
+    <div class="poem-bg-num">IV</div>
+    <div class="poem-cat"><span class="poem-dot"></span>Poem</div>
+    <div class="poem-title">Dear Body</div>
+    <div class="poem-lines">"I'm sorry I spent so long<br>looking at you like a problem<br>to be solved."</div>
+    <div class="poem-tags"><span class="poem-tag">Body</span><span class="poem-tag">Self</span></div>
+    <div class="poem-read">Read full poem</div>
+  </div>
+
+</div>
+
+<div class="marquee" style="margin-top:2px;">
+  <div class="marquee-inner">
+    Poems <span class="sep">·</span> Serialized Fiction <span class="sep">·</span> The Novel <span class="sep">·</span> Faith <span class="sep">·</span> Mental Health <span class="sep">·</span> Feminism <span class="sep">·</span> Nairobi <span class="sep">·</span> Life <span class="sep">·</span> Dating <span class="sep">·</span> Journal Essays <span class="sep">·</span> Womanhood <span class="sep">·</span> Healing <span class="sep">·</span> Poems <span class="sep">·</span> Serialized Fiction <span class="sep">·</span> The Novel <span class="sep">·</span> Faith <span class="sep">·</span> Mental Health <span class="sep">·</span> Feminism <span class="sep">·</span> Nairobi <span class="sep">·</span> Life <span class="sep">·</span> Dating <span class="sep">·</span>
+  </div>
+</div>
+
+<!-- JOURNAL ESSAYS -->
+<div class="section-label">
+  <span class="sl-text">Part II</span>
+  <div class="sl-line"></div>
+  <span class="sl-title">Journal-Style Essays</span>
+</div>
+
+<div class="essays-list">
+
+  <div class="essay-item" data-filter="essays">
+    <div class="essay-num">01</div>
+    <div class="essay-body">
+      <div class="essay-topic">Faith</div>
+      <div class="essay-title">What I Talk About When I Talk About God</div>
+      <div class="essay-excerpt">Not a sermon. Not a testimony. Just the honest, complicated, still-evolving relationship between one woman and the thing she calls faith.</div>
+    </div>
+    <div class="essay-meta">
+      <span class="essay-tag">Faith</span>
+      <span class="essay-length">7 min read</span>
+      <span class="essay-arrow">→</span>
+    </div>
+  </div>
+
+  <div class="essay-item" data-filter="essays">
+    <div class="essay-num">02</div>
+    <div class="essay-body">
+      <div class="essay-topic">Mental Health</div>
+      <div class="essay-title">The Year I Decided to Stop Being Fine</div>
+      <div class="essay-excerpt">A personal essay on what it actually took to stop performing wellness and start practising it.</div>
+    </div>
+    <div class="essay-meta">
+      <span class="essay-tag">Mental Health</span>
+      <span class="essay-length">9 min read</span>
+      <span class="essay-arrow">→</span>
+    </div>
+  </div>
+
+  <div class="essay-item" data-filter="essays">
+    <div class="essay-num">03</div>
+    <div class="essay-body">
+      <div class="essay-topic">Feminism</div>
+      <div class="essay-title">Being a Feminist in a City That Wasn't Built for You</div>
+      <div class="essay-excerpt">On navigating Nairobi as a woman with opinions, ambitions, and a refusal to be palatable.</div>
+    </div>
+    <div class="essay-meta">
+      <span class="essay-tag">Feminism</span>
+      <span class="essay-length">6 min read</span>
+      <span class="essay-arrow">→</span>
+    </div>
+  </div>
+
+  <div class="essay-item" data-filter="essays">
+    <div class="essay-num">04</div>
+    <div class="essay-body">
+      <div class="essay-topic">Nairobi · Life</div>
+      <div class="essay-title">This City Will Break You If You Let It — Don't Let It</div>
+      <div class="essay-excerpt">A love letter and a warning. Nairobi as muse, as mirror, as the thing that makes you and nearly unmakes you.</div>
+    </div>
+    <div class="essay-meta">
+      <span class="essay-tag">Nairobi</span>
+      <span class="essay-length">8 min read</span>
+      <span class="essay-arrow">→</span>
+    </div>
+  </div>
+
+  <div class="essay-item" data-filter="essays">
+    <div class="essay-num">05</div>
+    <div class="essay-body">
+      <div class="essay-topic">Dating</div>
+      <div class="essay-title">On Loving Men Who Don't Know How to Be Loved</div>
+      <div class="essay-excerpt">It's not about them. It's about why we keep choosing them — and what we learn when we finally stop.</div>
+    </div>
+    <div class="essay-meta">
+      <span class="essay-tag">Dating</span>
+      <span class="essay-length">10 min read</span>
+      <span class="essay-arrow">→</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- NOVEL -->
+<div class="section-label">
+  <span class="sl-text">Part III</span>
+  <div class="sl-line"></div>
+  <span class="sl-title">The Novel</span>
+</div>
+
+<div class="novel-section">
+  <div class="novel-left">
+    <div class="novel-bg-word">Novel</div>
+    <div class="novel-badge">
+      <span class="novel-badge-dot"></span>
+      In Progress
+    </div>
+    <div class="novel-title">Untitled Novel<br>by <em>Molly Ajando</em></div>
+    <div class="novel-desc">A story that lives somewhere between Nairobi and the interior — between the world she was given and the one she is building. Coming when it's ready. Not a day before.</div>
+    <div class="novel-notify">Notify Me When It's Ready →</div>
+  </div>
+  <div class="novel-right">
+    <div class="novel-detail">
+      <div class="novel-detail-label">Genre</div>
+      <div class="novel-detail-val">Literary Fiction</div>
+      <div class="novel-detail-sub">A story rooted in place, identity, and the women we become in spite of everything.</div>
+    </div>
+    <div class="novel-detail">
+      <div class="novel-detail-label">Setting</div>
+      <div class="novel-detail-val">Nairobi & Beyond</div>
+      <div class="novel-detail-sub">The city is as much a character as anyone in its pages.</div>
+    </div>
+    <div class="novel-detail">
+      <div class="novel-detail-label">Themes</div>
+      <div class="novel-detail-val">Identity · Faith · Womanhood</div>
+      <div class="novel-detail-sub">Everything she writes about, distilled into one long story.</div>
+    </div>
+    <div class="novel-detail">
+      <div class="novel-detail-label">Status</div>
+      <div class="novel-detail-val" style="color:var(--rose);">Coming Soon</div>
+      <div class="novel-detail-sub">Character aesthetics are already live under Film & Video.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERIALIZED -->
+<div class="section-label" style="margin-top:3rem;">
+  <span class="sl-text">Part IV</span>
+  <div class="sl-line"></div>
+  <span class="sl-title">Serialized Book</span>
+</div>
+
+<div class="serial-section">
+  <div class="serial-header">
+    <div></div>
+    <div class="serial-cta">Read from Chapter One</div>
+  </div>
+  <div class="serial-grid">
+    <div class="serial-card">
+      <div class="serial-ep">01</div>
+      <div class="serial-title">The Girl Who Arrived Already Late</div>
+      <div class="serial-desc">The chapter that started everything. She walks into a room and the story begins — though she doesn't know it yet.</div>
+      <span class="serial-status published">Published</span>
+      <span class="serial-arrow">→</span>
+    </div>
+    <div class="serial-card">
+      <div class="serial-ep">02</div>
+      <div class="serial-title">What She Left in the Flat on Ngong Road</div>
+      <div class="serial-desc">On leaving, on what you carry, and on the things that follow you no matter how far you go.</div>
+      <span class="serial-status published">Published</span>
+      <span class="serial-arrow">→</span>
+    </div>
+    <div class="serial-card">
+      <div class="serial-ep">03</div>
+      <div class="serial-title">The Month Everything Slowed Down</div>
+      <div class="serial-desc">A quieter chapter. The kind where nothing happens and everything changes.</div>
+      <span class="serial-status published">Published</span>
+      <span class="serial-arrow">→</span>
+    </div>
+    <div class="serial-card">
+      <div class="serial-ep">04</div>
+      <div class="serial-title">Coming Next</div>
+      <div class="serial-desc">The next chapter is being written. Subscribe to be the first to read it when it drops.</div>
+      <span class="serial-status upcoming">Coming Soon</span>
+      <span class="serial-arrow">→</span>
+    </div>
+  </div>
+</div>
+
+<div class="marquee" style="margin-top:2px;margin-bottom:0;">
+  <div class="marquee-inner">
+    The Novel <span class="sep">·</span> Coming Soon <span class="sep">·</span> Serialized Fiction <span class="sep">·</span> Poems <span class="sep">·</span> Essays <span class="sep">·</span> Faith <span class="sep">·</span> Dating <span class="sep">·</span> Nairobi <span class="sep">·</span> Feminism <span class="sep">·</span> Mental Health <span class="sep">·</span> Life <span class="sep">·</span> Healing <span class="sep">·</span> The Novel <span class="sep">·</span> Coming Soon <span class="sep">·</span> Serialized Fiction <span class="sep">·</span> Poems <span class="sep">·</span> Essays <span class="sep">·</span> Faith <span class="sep">·</span> Dating <span class="sep">·</span> Nairobi <span class="sep">·</span>
+  </div>
+</div>
+
+<!-- PAGE FOOTER NAV -->
+<div class="page-footer">
+  <div class="pf-logo">AJANDO</div>
+  <nav class="pf-nav">
+    <a href="#">Film & Video</a>
+    <a href="#">Health & Fitness</a>
+    <a href="#">Fashion & Beauty</a>
+    <a href="#">Mental Health</a>
+    <a href="#">About</a>
+  </nav>
+  <div class="pf-next">
+    Next: Mental Health
+    <div class="pf-next-arrow">→</div>
+  </div>
+</div>
+
+<script>
+const filterBtns = document.querySelectorAll('.filter-btn');
+const countEl = document.getElementById('count');
+const allItems = document.querySelectorAll('[data-filter]:not(.filter-btn)');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    let v = 0;
+    allItems.forEach(el => {
+      const show = f === 'all' || el.dataset.filter === f;
+      el.style.display = show ? '' : 'none';
+      if(show) v++;
+    });
+    countEl.textContent = v;
+  });
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {threshold:0.07});
+
+document.querySelectorAll('.poem-card,.essay-item,.serial-card,.novel-detail,.prog-cell,.section-label').forEach((el,i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(22px)';
+  el.style.transition = `opacity 0.65s ease ${i*0.05}s, transform 0.65s ease ${i*0.05}s`;
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
