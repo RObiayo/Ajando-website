@@ -125,22 +125,26 @@ a{text-decoration:none;color:inherit;}
 .pf-arrow{width:2rem;height:2rem;border:1px solid rgba(201,160,160,0.2);display:flex;align-items:center;justify-content:center;transition:all 0.3s;}.pf-end:hover .pf-arrow{border-color:var(--rose-deep);color:var(--rose);}
 @keyframes up{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-@media(max-width:768px){
-  /* HEALING HEARTS GALLERY */
-  .hh-gallery{
-    grid-template-columns:1fr 1fr;
-    margin:0 1.5rem 3rem;
-  }
-  .hh-photo.hh-large{
-    grid-column:span 2;
-    grid-row:span 1;
-    min-height:260px;
-  }
-  .hh-photo{
-    aspect-ratio:1/1;
-  }
-  .nav{padding:1rem 1.5rem;}
-  .nav-section{display:none;}
+@media(max-width:768px){.hh-gallery{
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:auto;
+  margin:0 1.5rem 3rem;
+}
+.hh-photo.hh-large{
+  grid-column:1 / span 2;
+  grid-row:auto;
+  height:260px;
+}
+.hh-photo{ height:180px; }
+.hh-photo:nth-child(2),
+.hh-photo:nth-child(3),
+.hh-photo:nth-child(4),
+.hh-photo:nth-child(5){ grid-column:auto; grid-row:auto; }
+.hh-photo:nth-child(6){
+  grid-column:1 / span 2;
+  grid-row:auto;
+  height:180px;
+}
 
   /* HERO */
   .hero-inner{grid-template-columns:1fr;padding:4rem 1.5rem 3rem;}
@@ -174,104 +178,101 @@ a{text-decoration:none;color:inherit;}
   .support-cards{grid-template-columns:1fr;}
   .sc{border-right:none;border-bottom:1px solid rgba(168,152,200,0.08);padding:2rem 1.5rem;}
 
-  /* RESOURCES */
-  /* HEALING HEARTS GALLERY */
+/* HEALING HEARTS GALLERY */
 .hh-gallery{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:2px;
-  background:rgba(168,152,200,0.05);
   margin:0 3rem 5rem;
-  overflow:hidden;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  grid-template-rows:240px 240px;
+  gap:3px;
 }
 .hh-photo{
   position:relative;
   overflow:hidden;
   cursor:pointer;
-  aspect-ratio:4/3;
   background:var(--black-soft);
 }
 .hh-photo.hh-large{
-  grid-column:span 2;
-  grid-row:span 2;
-  aspect-ratio:unset;
-  min-height:0;
-  max-height:480px;
+  grid-column:1;
+  grid-row:1 / span 2;
+}
+.hh-photo:nth-child(2){ grid-column:2; grid-row:1; }
+.hh-photo:nth-child(3){ grid-column:3; grid-row:1; }
+.hh-photo:nth-child(4){ grid-column:2; grid-row:2; }
+.hh-photo:nth-child(5){ grid-column:3; grid-row:2; }
+.hh-photo:nth-child(6){
+  grid-column:2 / span 2;
+  grid-row:3;
+  height:240px;
 }
 .hh-photo img{
   position:absolute;
-  inset:0;
+  top:0; left:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center top;
+  object-position:center;
   display:block;
   transition:transform 0.6s ease;
 }
-.hh-photo:hover img{
-  transform:scale(1.05);
-}
+.hh-photo:hover img{ transform:scale(1.04); }
 .hh-photo-overlay{
   position:absolute;
   inset:0;
-  background:linear-gradient(to top, rgba(10,8,7,0.92) 0%, rgba(10,8,7,0.2) 60%, transparent 100%);
+  background:linear-gradient(
+    to top,
+    rgba(10,8,7,0.90) 0%,
+    rgba(10,8,7,0.15) 55%,
+    transparent 100%
+  );
   z-index:1;
-  transition:opacity 0.4s;
-}
-.hh-photo:hover .hh-photo-overlay{
-  opacity:0.95;
 }
 .hh-photo-caption{
   position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:1.2rem;
+  bottom:0; left:0; right:0;
+  padding:1rem 1.2rem;
   z-index:2;
-  transform:translateY(4px);
-  opacity:0.9;
-  transition:all 0.4s ease;
-}
-.hh-photo:hover .hh-photo-caption{
-  transform:translateY(0);
-  opacity:1;
 }
 .hh-photo-tag{
   display:inline-block;
   font-size:0.48rem;
   letter-spacing:0.25em;
   text-transform:uppercase;
-  background:rgba(168,152,200,0.15);
   color:var(--lav-light);
-  border:1px solid rgba(168,152,200,0.25);
-  padding:0.2rem 0.5rem;
+  background:rgba(168,152,200,0.18);
+  border:1px solid rgba(168,152,200,0.3);
+  padding:0.18rem 0.5rem;
   margin-bottom:0.4rem;
 }
 .hh-photo-title{
   font-family:'Playfair Display',serif;
-  font-size:0.9rem;
+  font-size:0.88rem;
   font-weight:700;
   color:var(--cream);
-  line-height:1.25;
-  margin-bottom:0.2rem;
+  line-height:1.2;
+  margin-bottom:0;
 }
 .hh-photo.hh-large .hh-photo-title{
-  font-size:1.3rem;
+  font-size:1.2rem;
+  margin-bottom:0.3rem;
 }
 .hh-photo-desc{
-  font-size:0.6rem;
-  color:rgba(245,237,232,0.65);
+  font-size:0.58rem;
+  color:rgba(245,237,232,0.7);
   line-height:1.6;
   font-weight:300;
-  max-height:0;
   overflow:hidden;
+  max-height:0;
   opacity:0;
-  transition:all 0.4s ease 0.05s;
+  transition:max-height 0.4s ease, opacity 0.4s ease;
 }
 .hh-photo:hover .hh-photo-desc{
   max-height:3rem;
   opacity:1;
 }
+  /* RESOURCES */
+  .resources{margin:0 1.5rem 3rem;padding:2rem 1.5rem;}
+  .res-grid{grid-template-columns:1fr;}
 
   /* CRISIS */
   .crisis{margin:0 1.5rem 3rem;padding:1.5rem;flex-direction:column;gap:1rem;}
@@ -289,7 +290,7 @@ a{text-decoration:none;color:inherit;}
   <div class="hero-inner">
     <div>
       <p class="eyebrow">Healing Hearts</p>
-      <h1 class="hero-title">You Are<br>Allowed<br><em>To Heal.</em></h1>
+      <h1 class="hero-title">Creating<br>A Healing<br><em>Community.</em></h1>
       <div class="hero-rule"></div>
       <p class="hero-desc">This isn't a wellness brand. It's an honest space — for advocacy, for community, and the kind of conversations that actually help. Molly's story, the Healing Hearts organization, and everything in between.</p>
       <div class="hero-btns"><button class="btn-lav">Healing Hearts</button><a href="#story" class="btn-ghost">Read Her Story</a></div>
