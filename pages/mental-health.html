@@ -127,25 +127,45 @@ a{text-decoration:none;color:inherit;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 @media(max-width:768px)
 {.nav{padding:1rem 1.5rem;}
-  .hh-gallery{
-    grid-template-columns:1fr 1fr;
-    grid-template-rows:200px 200px 200px;
-    margin:0 1.5rem 3rem;
-    gap:3px;
-  }
-  .hh-photo:nth-child(1){
-    grid-column:1 / span 2;
-    grid-row:1;
-  }
-  .hh-photo:nth-child(2){ grid-column:1; grid-row:2; }
-  .hh-photo:nth-child(3){ grid-column:2; grid-row:2; }
-  .hh-photo:nth-child(4){ grid-column:1; grid-row:3; }
-  .hh-photo:nth-child(5){ grid-column:2; grid-row:3; }
-  .hh-photo:nth-child(6){
-    grid-column:1 / span 2;
-    grid-row:4;
-    height:200px;
-  }
+.hh-gallery{
+  margin:0 1.5rem 3rem;
+  gap:3px;
+}
+.hh-row{
+  flex-direction:column;
+  height:auto;
+}
+.hh-row-1{
+  height:auto;
+}
+.hh-row-2{
+  height:auto;
+  flex-direction:column;
+}
+.hh-large{
+  flex:none;
+  height:280px;
+  width:100%;
+}
+.hh-stack{
+  flex-direction:row;
+  height:200px;
+}
+.hh-stack .hh-photo{
+  flex:1;
+  height:200px;
+}
+.hh-offset-down,
+.hh-offset-up{
+  margin:0;
+  height:200px;
+}
+.hh-photo-title{
+  font-size:0.85rem;
+}
+.hh-large .hh-photo-title{
+  font-size:1.1rem;
+}
 
   /* HERO */
   .hero-inner{grid-template-columns:1fr;padding:4rem 1.5rem 3rem;}
@@ -181,114 +201,172 @@ a{text-decoration:none;color:inherit;}
 /* HEALING HEARTS GALLERY */
 .hh-gallery{
   margin:0 3rem 5rem;
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  grid-template-rows:300px 300px;
+  display:flex;
+  flex-direction:column;
   gap:4px;
 }
+
+/* Row 1 — large + stacked */
+.hh-row{
+  display:flex;
+  gap:4px;
+}
+.hh-row-1{
+  height:520px;
+}
+.hh-large{
+  flex:0 0 60%;
+}
+.hh-stack{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.hh-stack .hh-photo{
+  flex:1;
+}
+
+/* Row 2 — zigzag three */
+.hh-row-2{
+  height:320px;
+  align-items:stretch;
+}
+.hh-row-2 .hh-photo{
+  flex:1;
+}
+.hh-offset-down{
+  margin-top:30px;
+  height:calc(100% - 30px);
+}
+.hh-offset-up{
+  margin-bottom:30px;
+  height:calc(100% - 30px);
+}
+
+/* Every photo cell */
 .hh-photo{
   position:relative;
   overflow:hidden;
   background:#141010;
   display:block;
+  cursor:pointer;
 }
 .hh-photo img{
   position:absolute;
-  top:0;
-  left:0;
+  top:0; left:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center;
+  object-position:center top;
   display:block;
   transition:transform 0.7s ease;
 }
 .hh-photo:hover img{
   transform:scale(1.06);
 }
-.hh-photo:nth-child(1){
-  grid-column:1 / span 5;
-  grid-row:1 / span 2;
-}
-.hh-photo:nth-child(2){
-  grid-column:6 / span 4;
-  grid-row:1;
-}
-.hh-photo:nth-child(3){
-  grid-column:10 / span 3;
-  grid-row:1;
-}
-.hh-photo:nth-child(4){
-  grid-column:6 / span 3;
-  grid-row:2;
-}
-.hh-photo:nth-child(5){
-  grid-column:9 / span 2;
-  grid-row:2;
-}
-.hh-photo:nth-child(6){
-  grid-column:11 / span 2;
-  grid-row:2;
-}
 .hh-photo-overlay{
   position:absolute;
   inset:0;
   background:linear-gradient(
     to top,
-    rgba(10,8,7,0.88) 0%,
-    rgba(10,8,7,0.1) 55%,
+    rgba(10,8,7,0.92) 0%,
+    rgba(10,8,7,0.35) 45%,
     transparent 100%
   );
   z-index:1;
   transition:opacity 0.4s;
 }
 .hh-photo:hover .hh-photo-overlay{
-  opacity:0.95;
+  opacity:0.97;
 }
+
+/* Caption — slides up on hover */
 .hh-photo-caption{
   position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:1.2rem 1.4rem;
+  bottom:0; left:0; right:0;
+  padding:1.5rem;
   z-index:2;
+  transform:translateY(12px);
+  opacity:0.85;
+  transition:transform 0.45s ease, opacity 0.45s ease;
 }
+.hh-photo:hover .hh-photo-caption{
+  transform:translateY(0);
+  opacity:1;
+}
+.hh-large .hh-photo-caption{
+  padding:2rem;
+}
+
+/* Tag pill */
 .hh-photo-tag{
   display:inline-block;
-  font-size:0.48rem;
-  letter-spacing:0.28em;
+  font-size:0.5rem;
+  letter-spacing:0.3em;
   text-transform:uppercase;
   color:var(--lav-light);
   background:rgba(168,152,200,0.18);
   border:1px solid rgba(168,152,200,0.3);
-  padding:0.2rem 0.55rem;
-  margin-bottom:0.5rem;
+  padding:0.22rem 0.6rem;
+  margin-bottom:0.6rem;
 }
+
+/* Title */
 .hh-photo-title{
   font-family:'Playfair Display',serif;
-  font-size:0.9rem;
+  font-size:1rem;
   font-weight:700;
   color:var(--cream);
   line-height:1.25;
-  margin:0;
+  margin:0 0 0.4rem;
+  transform:translateY(6px);
+  transition:transform 0.45s ease 0.05s;
 }
-.hh-photo:nth-child(1) .hh-photo-title{
-  font-size:1.3rem;
+.hh-photo:hover .hh-photo-title{
+  transform:translateY(0);
 }
+.hh-large .hh-photo-title{
+  font-size:1.5rem;
+}
+
+/* Description — hidden until hover */
 .hh-photo-desc{
-  font-size:0.6rem;
-  color:rgba(245,237,232,0.7);
-  line-height:1.6;
+  font-size:0.62rem;
+  color:rgba(245,237,232,0.72);
+  line-height:1.7;
   font-weight:300;
   max-height:0;
   overflow:hidden;
   opacity:0;
-  transition:max-height 0.4s ease, opacity 0.35s ease;
-  margin-top:0.3rem;
+  transition:max-height 0.45s ease 0.08s, opacity 0.4s ease 0.08s;
 }
 .hh-photo:hover .hh-photo-desc{
-  max-height:3rem;
+  max-height:4rem;
   opacity:1;
+}
+
+/* Scroll reveal animations */
+.reveal-left{
+  opacity:0;
+  transform:translateX(-40px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-right{
+  opacity:0;
+  transform:translateX(40px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-up{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-left.visible,
+.reveal-right.visible,
+.reveal-up.visible{
+  opacity:1;
+  transform:translate(0);
 }
   /* RESOURCES */
   .resources{margin:0 1.5rem 3rem;padding:2rem 1.5rem;}
@@ -362,67 +440,78 @@ a{text-decoration:none;color:inherit;}
 
 <div class="hh-gallery">
 
-  <!-- Featured large photo -->
-  <div class="hh-photo hh-large">
-    <img src="../assets/hh01.jpg" alt="Healing Hearts organization event — community gathering">
-    <div class="hh-photo-overlay"></div>
-    <div class="hh-photo-caption">
-      <span class="hh-photo-tag">Community</span>
-      <p class="hh-photo-title">Building Safe Spaces Together</p>
-      <p class="hh-photo-desc">A brief description of this event or moment — what happened, who was there, why it mattered.</p>
+  <!-- ROW 1: large left + two stacked right -->
+  <div class="hh-row hh-row-1">
+
+    <div class="hh-photo hh-large reveal-left">
+      <img src="../assets/hh01.jpg" alt="Healing Hearts organization event — community gathering">
+      <div class="hh-photo-overlay"></div>
+      <div class="hh-photo-caption">
+        <span class="hh-photo-tag">Community</span>
+        <h3 class="hh-photo-title">Building Safe Spaces Together</h3>
+        <p class="hh-photo-desc">A brief description of this event or moment — what happened, who was there, why it mattered.</p>
+      </div>
     </div>
+
+    <div class="hh-stack">
+      <div class="hh-photo reveal-right" style="transition-delay:0.1s;">
+        <img src="../assets/hh02.jpg" alt="Healing Hearts — awareness session">
+        <div class="hh-photo-overlay"></div>
+        <div class="hh-photo-caption">
+          <span class="hh-photo-tag">Advocacy</span>
+          <h3 class="hh-photo-title">Mental Health Awareness Session</h3>
+          <p class="hh-photo-desc">Short description of this moment.</p>
+        </div>
+      </div>
+      <div class="hh-photo reveal-right" style="transition-delay:0.2s;">
+        <img src="../assets/hh03.jpg" alt="Healing Hearts — support group session">
+        <div class="hh-photo-overlay"></div>
+        <div class="hh-photo-caption">
+          <span class="hh-photo-tag">Support</span>
+          <h3 class="hh-photo-title">Support Group Session</h3>
+          <p class="hh-photo-desc">Short description of this moment.</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Smaller photos -->
-  <div class="hh-photo">
-    <img src="../assets/hh02.jpg" alt="Healing Hearts — awareness session">
-    <div class="hh-photo-overlay"></div>
-    <div class="hh-photo-caption">
-      <span class="hh-photo-tag">Advocacy</span>
-      <p class="hh-photo-title">Mental Health Awareness Session</p>
-      <p class="hh-photo-desc">Short description of this moment.</p>
+  <!-- ROW 2: zigzag — three equal, offset -->
+  <div class="hh-row hh-row-2">
+
+    <div class="hh-photo hh-offset-down reveal-up" style="transition-delay:0s;">
+      <img src="../assets/hh04.jpg" alt="Healing Hearts — community outreach">
+      <div class="hh-photo-overlay"></div>
+      <div class="hh-photo-caption">
+        <span class="hh-photo-tag">Outreach</span>
+        <h3 class="hh-photo-title">Community Outreach</h3>
+        <p class="hh-photo-desc">Short description of this moment.</p>
+      </div>
     </div>
+
+    <div class="hh-photo hh-offset-up reveal-up" style="transition-delay:0.15s;">
+      <img src="../assets/hh-05.jpg" alt="Healing Hearts — workshop">
+      <div class="hh-photo-overlay"></div>
+      <div class="hh-photo-caption">
+        <span class="hh-photo-tag">Education</span>
+        <h3 class="hh-photo-title">Workshop & Learning</h3>
+        <p class="hh-photo-desc">Short description of this moment.</p>
+      </div>
+    </div>
+
+    <div class="hh-photo hh-offset-down reveal-up" style="transition-delay:0.3s;">
+      <img src="../assets/hh-06.jpg" alt="Healing Hearts — team and volunteers">
+      <div class="hh-photo-overlay"></div>
+      <div class="hh-photo-caption">
+        <span class="hh-photo-tag">Team</span>
+        <h3 class="hh-photo-title">The People Behind the Work</h3>
+        <p class="hh-photo-desc">Short description of this moment.</p>
+      </div>
+    </div>
+
   </div>
 
-  <div class="hh-photo">
-    <img src="../assets/hh03.jpg" alt="Healing Hearts — support group session">
-    <div class="hh-photo-overlay"></div>
-    <div class="hh-photo-caption">
-      <span class="hh-photo-tag">Support</span>
-      <p class="hh-photo-title">Support Group Session</p>
-      <p class="hh-photo-desc">Short description of this moment.</p>
-    </div>
-  </div>
-
-  <div class="hh-photo">
-    <img src="../assets/hh04.jpg" alt="Healing Hearts — community outreach">
-    <div class="hh-photo-overlay"></div>
-    <div class="hh-photo-caption">
-      <span class="hh-photo-tag">Outreach</span>
-      <p class="hh-photo-title">Community Outreach</p>
-      <p class="hh-photo-desc">Short description of this moment.</p>
-    </div>
-  </div>
-
-  <div class="hh-photo">
-    <img src="../assets/hh-05.jpg" alt="Healing Hearts — workshop">
-    <div class="hh-photo-overlay"></div>
-    <div class="hh-photo-caption">
-      <span class="hh-photo-tag">Education</span>
-      <p class="hh-photo-title">Workshop & Learning</p>
-      <p class="hh-photo-desc">Short description of this moment.</p>
-    </div>
-  </div>
-
-  <div class="hh-photo">
-    <img src="../assets/hh-06.jpg" alt="Healing Hearts — team and volunteers">
-    <div class="hh-photo-overlay"></div>
-    <div class="hh-photo-caption">
-      <span class="hh-photo-tag">Team</span>
-      <p class="hh-photo-title">The People Behind the Work</p>
-      <p class="hh-photo-desc">Short description of this moment.</p>
-    </div>
-  </div>
+</div>
 
 </div>
 <div class="sl"><span class="sl-tag">Chapter III</span><div class="sl-rule"></div><span class="sl-title">Film Through a Mental Health Lens</span></div>
@@ -461,6 +550,21 @@ a{text-decoration:none;color:inherit;}
 <script>
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)';}});},{threshold:0.07});
 document.querySelectorAll('.s-stat,.org-cell,.fc,.sc,.ri,.sl,.aff').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(22px)';el.style.transition=`opacity 0.7s ease ${i*0.05}s,transform 0.7s ease ${i*0.05}s`;obs.observe(el);});
+// Gallery scroll reveal
+const revealEls = document.querySelectorAll('.reveal-left, .reveal-right, .reveal-up');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if(entry.isIntersecting){
+      const delay = entry.target.style.transitionDelay || '0s';
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, parseFloat(delay) * 1000);
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+revealEls.forEach(el => revealObs.observe(el));
 </script>
 </body>
 </html>
